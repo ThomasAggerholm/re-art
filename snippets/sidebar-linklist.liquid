@@ -1,0 +1,18 @@
+<ul class="sidebar-linklist">
+    {% for link in linklists.sidebar-menu.links %}
+    <li class="sidebar-linklist-item">
+        <a href="{{ link.url }}" class="sidebar-linklist-item-link">{{ link.title }}</a>
+        {% if link.links != blank %}
+        <div class="sidebar-child-linklist-wrapper">
+            <ul class="sidebar-child-linklist">
+                {% for child_link in link.links %}
+                <li class="sidebar-child-linklist-item">
+                    <a href="{{ child_link.url }}" class="sidebar-child-linklist-item-link">{{ child_link.title }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>

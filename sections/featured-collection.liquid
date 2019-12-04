@@ -1,0 +1,40 @@
+{% assign s = section.settings %}
+{% assign col = s.col %}
+
+<div id="featured-collection" class="featured-collection__inner container">
+    <h2 class="featured-collection__title">{{ s.title }}</h2>
+
+    <div class="featured-collection__slider js-featured-slider">
+        {% for p in collections[col].products limit:10 %}
+            {% include 'product-card' with class: 'featured-collection__product-card' %}
+        {% endfor %}
+    </div>
+    
+    <div class="featured-collection__slider__controls">
+        <div class="prev">&larr;</div>
+        <div class="next">&rarr;</div>
+    </div>
+</div>
+
+{% schema %}
+    {
+        "name": "Featured collection",
+        "class": "featured-collection",
+        "settings": [
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Featured kollektion overskrift"
+            },
+            {
+                "type": "collection",
+                "id": "col",
+                "label": "Vælg kollektion"
+            }
+        ],
+        "presets": [{
+            "name": "Featured collection",
+            "category": "Featured collection"
+        }]
+    }
+{% endschema %}

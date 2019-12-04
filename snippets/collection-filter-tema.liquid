@@ -1,0 +1,24 @@
+<ul class="collection-filter flex">
+    <h3 class="headline-smaller">Tema</h3>
+    <div class="collection-filter__item-wrapper filter-tema flex">
+        <ul class="filter">
+            {% assign tema = '' %}
+            {% for tag in collection.all_tags %}
+                {% if tag contains 'tema_' %}
+                    {% assign tema = tag | remove: 'tema_' %}
+                    {% if current_tags contains tag %}
+                        <li class="active">
+                            <label for="id_{{ product.id }}">{{ tema }}</label>
+                            <input id="id_{{ product.id }}" class="product-url" type="checkbox" checked value="{{ tag | handle }}">
+                        </li>
+                    {% else %}
+                        <li>
+                            <label for="id_{{ product.id }}">{{ tema }}</label>
+                            <input id="id_{{ product.id }}" class="product-url" type="checkbox" value="{{ tag | handle }}">
+                        </li>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+</ul>

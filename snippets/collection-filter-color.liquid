@@ -1,0 +1,24 @@
+<ul class="collection-filter flex">
+    <h3 class="headline-smaller">Farver</h3>
+    <div class="collection-filter__item-wrapper filter-color flex">
+        <ul class="filter">
+            {% assign color = '' %}
+            {% for tag in collection.all_tags %}
+                {% if tag contains 'color_' %}
+                    {% assign color = tag | remove: 'color_' %}
+                    {% if current_tags contains tag %}
+                        <li class="active">
+                            <label for="id_{{ product.id }}">{{ color }}</label>
+                            <input id="id_{{ product.id }}" class="product-url" type="checkbox" value="{{ tag | handle }}">
+                        </li>
+                    {% else %}
+                        <li>
+                            <label for="id_{{ product.id }}">{{ color }}</label>
+                            <input id="id_{{ product.id }}" class="product-url" type="checkbox" value="{{ tag | handle }}">
+                        </li>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+</ul>

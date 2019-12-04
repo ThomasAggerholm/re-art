@@ -1,0 +1,33 @@
+<section class="collection-main__container">
+    <div class="collection-main__product-container">
+
+        <div class="collection-filter__container flex-space-between">
+            <div class="collection-filter__wrapper">
+                <button class="collection-filter__button">Filter</button>
+                {% include 'collection-filter' %}
+            </div>
+
+            <div class="collection-filter__sorting__wrapper">
+                <div class="collection-filter__sorting">Sorter efter</div>
+            </div>
+        </div>
+
+        {% paginate collection.products by 16 %}
+            <div class="collection-grid__wrapper">
+                <div class="collection-grid grid">
+                {% if collection.products_count > 0 %}
+                    {% for product in collection.products %}
+                        {% include 'product-card' %}
+                    {% endfor %}
+                {% else %}
+                    <p>Ingen produkter at vise.</p>
+                {% endif %}
+                </div>
+            </div>
+            {% if paginate.pages > 1 %}
+                {{ paginate | default_pagination }}
+            {% endif %}
+        {% endpaginate %}
+
+    </div>
+</section>

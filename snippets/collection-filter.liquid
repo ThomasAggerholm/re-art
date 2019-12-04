@@ -1,0 +1,11 @@
+<div class="collection-filter__container">
+    <div class="collection-filter__remove">
+        <a href="{{ collection.url }}">Fjern filtre</a>
+        <button class="button">Filtrer produkter</button>
+    </div>
+
+    <div class="collection-filter__wrapper flex">
+        {% include 'collection-filter-tema' %}
+        {% include 'collection-filter-color' %}
+    </div>
+</div>

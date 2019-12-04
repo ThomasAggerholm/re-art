@@ -1,0 +1,56 @@
+{%- assign s = section.settings -%}
+
+<section class="hero">
+    <div class="hero__inner container">
+        <h1 class="hero__title">{{ s.title }}</h1>
+        <p class="hero__text">{{ s.text }}</p>
+        <a class="btn btn--transparent hero__btn" href="{{ s.btn_url }}">{{ s.btn_text }}</a>
+    </div>
+
+    <div class="hero__scroll"><a href="#featured-collection">Scroll</a></div>
+
+    <div class="hero__overlay"></div>
+
+    {{ s.image | img_url: 'master' | img_tag: 'Hero', 'hero__image' }}
+</section>
+
+{% schema %}
+    {
+        "name": "Hero",
+        "class": "hero__wrapper",
+        "settings": [
+            {
+                "type": "image_picker",
+                "id": "image",
+                "label": "Indsæt baggrundsbillede"
+            },
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Hero overskrift"
+            },
+            {
+                "type": "text",
+                "id": "text",
+                "label": "Hero tekstfelt"
+            },
+            {
+                "type": "url",
+                "id": "btn_link",
+                "label": "Link på knap"
+            },
+            {
+                "type": "text",
+                "id": "btn_text",
+                "label": "Tekst på knap"
+            }
+        ],
+        "presets": [
+            {
+                "name": "Hero",
+                "category": "Hero",
+                "settings": {}
+            }
+        ]
+    }
+{% endschema %}
