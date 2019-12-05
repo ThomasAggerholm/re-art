@@ -405,7 +405,20 @@ img {
     margin-top: 130px;
     margin-bottom: 100px;
 
+    &__title {
+        max-width: 300px;
+
+        margin-bottom: 60px;
+
+        transform: translateY(20px);
+
+        opacity: 0;
+    }
+
     &__slider {
+        transform: translateY(20px);
+
+        opacity: 0;
 
         &__controls {
             position: absolute;
@@ -437,12 +450,6 @@ img {
 
     .slick-slide {
         margin: 0 10px;
-    }
-
-    &__title {
-        max-width: 300px;
-
-        margin-bottom: 60px;
     }
 
     &__product-card {

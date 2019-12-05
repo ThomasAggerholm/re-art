@@ -37,29 +37,31 @@ const frontPageAnim = function() {
 
 // Frontpage scroll animations
 const controller = new ScrollMagic.Controller()
-const featureTl = new gsap.timeline()
+
+const tl = new gsap.timeline()
+
 const featureTitle = document.querySelector('.featured-collection__title')
 const featureSlider = document.querySelector('.js-featured-slider')
 
-featureTl.from(featureTitle, {
-    delay: 0.5,
-    duration: 0.7,
-    opacity: 0,
-    y: 30,
-    power: 'power3.inOut'
+tl.to(featureTitle, {
+    delay: 0.3,
+    duration: 1,
+    opacity: 1,
+    y: 0,
+    ease: 'power3.inOut'
 })
-.from(featureSlider, {
-    duration: 0.7,
-    opacity: 0,
-    y: 30,
-    power: 'power3.inOut'
+.to(featureSlider, {
+    duration: 1,
+    opacity: 1,
+    y: 0,
+    ease: 'power3.inOut'
 }, '-=0.5')
 
 const scene = new ScrollMagic.Scene({
     triggerElement: '.featured-collection',
     triggerHook: 'onEnter'
 })
-    .setTween(featureTl)
+    .setTween(tl)
     .addTo(controller)
 
 
