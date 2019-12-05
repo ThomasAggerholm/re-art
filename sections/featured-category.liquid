@@ -1,0 +1,99 @@
+{% assign s = section.settings %}
+
+<div class="featured-category__inner container">
+    <h2 class="featured-category__title">{{ s.title }}</h2>
+
+    {% for b in section.blocks %}
+    {% assign bs = b.settings %}
+        <div class="featured-category__row">
+            <div class="featured-category__col js-feat-col">
+                <h2 class="featured-category__cat__title">{{ bs.c1_title }}</h2>
+                <div class="featured-category__btn">
+                    <a href="{{ bs.c1_link }}" class="btn btn--white">{{ bs.c1_link_text }}</a>
+                </div>
+                {{ bs.c1_image | img_url: 'master' | img_tag }}
+                <div class="overlay"></div>
+            </div>
+
+            <div class="featured-category__col js-feat-col">
+                <h2 class="featured-category__cat__title">{{ bs.c2_title }}</h2>
+                <div class="featured-category__btn">
+                    <a href="{{ bs.c2_link }}" class="btn btn--white">{{ bs.c2_link_text }}</a>
+                </div>
+                {{ bs.c2_image | img_url: 'master' | img_tag }}
+                <div class="overlay"></div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+{% schema %}
+    {
+        "name": "Featured category",
+        "class": "featured-category",
+        "settings": [
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Overskrift",
+                "default": "Kategorier"
+            }
+        ],
+        "blocks": [
+            {
+                "type": "category-row",
+                "name": "Category row",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "c1_image",
+                        "label": "Kategori 1 baggrundsbillede"
+                    },
+                    {
+                        "type": "text",
+                        "id": "c1_title",
+                        "label": "Titel på kategori 1"
+                    },
+                    {
+                        "type": "text",
+                        "id": "c1_link_text",
+                        "label": "Tekst på knap til kategori 1",
+                        "default": "Shop nu"
+                    },
+                    {
+                        "type": "url",
+                        "id": "c1_link",
+                        "label": "Link til kategori 1"
+                    },
+                    {
+                        "type": "image_picker",
+                        "id": "c2_image",
+                        "label": "Kategori 2 baggrundsbillede"
+                    },
+                    {
+                        "type": "text",
+                        "id": "c2_title",
+                        "label": "Titel på kategori 2"
+                    },
+                    {
+                        "type": "text",
+                        "id": "c2_link_text",
+                        "label": "Tekst på knap til kategori 2",
+                        "default": "Shop nu"
+                    },
+                    {
+                        "type": "url",
+                        "id": "c2_link",
+                        "label": "Link til kategori 2"
+                    }
+                ]
+            }
+        ],
+        "presets": [
+            {
+                "name": "Featured category",
+                "category": "featured category"
+            }
+        ]
+    }
+{% endschema %}
