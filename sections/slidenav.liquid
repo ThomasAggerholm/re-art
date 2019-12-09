@@ -1,0 +1,35 @@
+<div class="slidenav__inner">
+    <div class="slidenav__left"></div>
+
+    <div class="slidenav__right">
+        <div class="slidenav__close">Close</div>
+
+        <div class="slidenav__nav">
+            <h3>Links</h3>
+            <ul>
+                <li><a href="#">Kontakt os</a></li>
+                <li><a href="#">Om os</a></li>
+                <li><a href="#">Kalender</a></li>
+                <li><a href="#">Nyheder</a></li>
+                <li><a href="#">Indramning</a></li>
+                <li><a href="#">Særlige tilbud</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="slidenav__layer"></div>
+
+{% schema %}
+    {
+        "name": "slidenav",
+        "class": "slidenav",
+        "settings": [
+            {
+                "type": "text",
+                "id": "text",
+                "label": "Overskrift"
+            }
+        ]
+    }
+{% endschema %}
