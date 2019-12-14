@@ -1,19 +1,19 @@
+{% assign s = section.settings %}
+
 <div class="slidenav__inner">
-    <div class="slidenav__left"></div>
+    <div class="slidenav__left">
+        <div class="slidenav__left__image-wrapper">
+            <div class="slidenav__left__link-title"></div>
+            {{ s.img | img_url: 'large' | img_tag }}
+        </div>
+    </div>
 
     <div class="slidenav__right">
         <div class="slidenav__close">Close</div>
 
         <div class="slidenav__nav">
-            <h3>Links</h3>
-            <ul>
-                <li><a href="#">Kontakt os</a></li>
-                <li><a href="#">Om os</a></li>
-                <li><a href="#">Kalender</a></li>
-                <li><a href="#">Nyheder</a></li>
-                <li><a href="#">Indramning</a></li>
-                <li><a href="#">Særlige tilbud</a></li>
-            </ul>
+            <h3>{{ s.text }}</h3>
+            {% include 'linklist' with class: 'slidenav__linklist' %}
         </div>
     </div>
 </div>
@@ -29,6 +29,16 @@
                 "type": "text",
                 "id": "text",
                 "label": "Overskrift"
+            },
+            {
+                "type": "link_list",
+                "id": "nav",
+                "label": "Vælg linkliste"
+            },
+            {
+                "type": "image_picker",
+                "id": "img",
+                "label": "Vælg billede til venstre side af menuen"
             }
         ]
     }

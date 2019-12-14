@@ -17,11 +17,14 @@
 </head>
 
 <body>
+    {% section 'slidenav' %}
+
     <main role="main" class="site-main">
     {% section 'header' %}
     
     {{ content_for_layout }}
     </main>
+    {% section 'footer' %}
 
     <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

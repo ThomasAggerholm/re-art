@@ -7,27 +7,33 @@
     {% assign bs = b.settings %}
         <div class="featured-theme__row">
             <div class="featured-theme__col js-theme-col">
-                <h2 class="featured-theme__cat__title">{{ bs.c1_title }}</h2>
-                <div class="featured-theme__btn">
-                    <a href="{{ bs.c1_link }}" class="btn btn--white">{{ bs.c1_link_text }}</a>
+                <div class="featured-theme__info-wrapper">
+                    <h2 class="featured-theme__cat__title">{{ bs.c1_title }}</h2>
+                    <div class="featured-theme__btn">
+                        <a href="{{ bs.c1_link }}" class="btn btn--white">{{ bs.c1_link_text }}</a>
+                    </div>
                 </div>
                 {{ bs.c1_image | img_url: 'master' | img_tag }}
                 <div class="overlay"></div>
             </div>
 
             <div class="featured-theme__col js-theme-col">
-                <h2 class="featured-theme__cat__title">{{ bs.c2_title }}</h2>
-                <div class="featured-theme__btn">
-                    <a href="{{ bs.c2_link }}" class="btn btn--white">{{ bs.c2_link_text }}</a>
+                <div class="featured-theme__info-wrapper">
+                    <h2 class="featured-theme__cat__title">{{ bs.c2_title }}</h2>
+                    <div class="featured-theme__btn">
+                        <a href="{{ bs.c2_link }}" class="btn btn--white">{{ bs.c2_link_text }}</a>
+                    </div>
                 </div>
                 {{ bs.c2_image | img_url: 'master' | img_tag }}
                 <div class="overlay"></div>
             </div>
 
             <div class="featured-theme__col js-theme-col">
-                <h2 class="featured-theme__cat__title">{{ bs.c3_title }}</h2>
-                <div class="featured-theme__btn">
-                    <a href="{{ bs.c3_link }}" class="btn btn--white">{{ bs.c3_link_text }}</a>
+                <div class="featured-theme__info-wrapper">
+                    <h2 class="featured-theme__cat__title">{{ bs.c3_title }}</h2>
+                    <div class="featured-theme__btn">
+                        <a href="{{ bs.c3_link }}" class="btn btn--white">{{ bs.c3_link_text }}</a>
+                    </div>
                 </div>
                 {{ bs.c3_image | img_url: 'master' | img_tag }}
                 <div class="overlay"></div>

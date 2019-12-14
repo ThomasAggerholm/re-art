@@ -1,17 +1,21 @@
 {%- assign s = section.settings -%}
 
 <section class="hero">
-    <div class="hero__inner container">
-        <h1 class="hero__title">{{ s.title }}</h1>
-        <p class="hero__text">{{ s.text }}</p>
-        <a class="btn btn--transparent hero__btn" href="{{ s.btn_url }}">{{ s.btn_text }}</a>
+    <div class="hero__slider" data-speed="{{ s.speed }}">
+    {% for b in section.blocks %}
+    {% assign bs = b.settings %}
+        <div class="hero__inner" {% if bs.center_text %}style="align-items: center;"{% endif %}>
+            <div class="hero__text-wrapper">
+                <h1 class="hero__title" style="color:{{ s.text_color }};">{{ bs.headline }}</h1>
+                <p class="hero__text" style="color:{{ s.text_color }};">{{ bs.text }}</p>
+                <a class="btn btn--transparent hero__btn" href="{{ s.btn_url }}">{{ bs.btn_text }}</a>
+            </div>
+            {{ bs.image | img_url: 'master' | img_tag: 'Hero', 'hero__image' }}
+        </div>
+    {% endfor %}
     </div>
 
     <div class="hero__scroll"><a href="#featured-collection">Scroll</a></div>
-
-    <div class="hero__overlay"></div>
-
-    {{ s.image | img_url: 'master' | img_tag: 'Hero', 'hero__image' }}
 </section>
 
 {% schema %}
@@ -20,29 +24,75 @@
         "class": "hero__wrapper",
         "settings": [
             {
-                "type": "image_picker",
-                "id": "image",
-                "label": "Indsæt baggrundsbillede"
+                "type": "header",
+                "content": "Slider indstillinger",
+                "info": "Her kan du ændre på forskellige indstillinger i hero slideren"
             },
             {
-                "type": "text",
-                "id": "title",
-                "label": "Hero overskrift"
-            },
+                "type": "range",
+                "id": "speed",
+                "label": "Hastighed på slideren",
+                "info": "Vælg hvor mange sekunder der skal være imellem slides",
+                "min": 2000,
+                "max": 9000,
+                "default": 4000,
+                "step": 500
+            }
+        ],
+        "blocks": [
             {
-                "type": "text",
-                "id": "text",
-                "label": "Hero tekstfelt"
-            },
-            {
-                "type": "url",
-                "id": "btn_link",
-                "label": "Link på knap"
-            },
-            {
-                "type": "text",
-                "id": "btn_text",
-                "label": "Tekst på knap"
+                "type": "hero_slide",
+                "name": "Hero slide",
+                "settings": [
+                    {
+                        "type": "header",
+                        "content": "Billede indstillinger",
+                        "info": "Vælg baggrundsbillede på minimum 1280 px bred. Optimalt 1920px bred."
+                    },
+                    {
+                        "type": "image_picker",
+                        "id": "image",
+                        "label": "Vælg baggrundsbillede"
+                    },
+                    {
+                        "type": "header",
+                        "content": "Tekst indstillinger",
+                        "info": "Vælg tekst, alignment og farve på tekst"
+                    },
+                    {
+                        "type": "color",
+                        "id": "text_color",
+                        "label": "Farve på teksten",
+                        "default": "#000000"
+                    },
+                    {
+                        "type": "checkbox",
+                        "id": "center_text",
+                        "label": "Centrer text?",
+                        "info": "Tryk på denne for at få teksten centreret i midten",
+                        "default": false
+                    },
+                    {
+                        "type": "text",
+                        "id": "headline",
+                        "label": "Hero overskrift"
+                    },
+                    {
+                        "type": "text",
+                        "id": "text",
+                        "label": "Hero tekstfelt"
+                    },
+                    {
+                        "type": "url",
+                        "id": "btn_link",
+                        "label": "Link på knap"
+                    },
+                    {
+                        "type": "text",
+                        "id": "btn_text",
+                        "label": "Tekst på knap"
+                    }
+                ]
             }
         ],
         "presets": [
