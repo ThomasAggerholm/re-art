@@ -1,0 +1,42 @@
+{% assign s = section.settings %}
+{% assign secretToken = s.token | replace: '.', '%' %}
+
+<div class="instagram-feed" data-string="{{ secretToken }}">
+    <div class="instagram-feed__container container">
+        <div class="instagram-feed__title"><h3 class="h2">{{ s.title }} <a href="{{ s.link }}" target="_blank">{{ s.link_text }}</a></h3></div>
+        <ul id="instafeed"></ul>
+    </div>
+</div>
+
+{% schema %}
+{
+    "name": "Instafeed",
+    "settings": [{
+        "type": "text",
+        "id": "title",
+        "label": "Instagram feed headline",
+        "default": "Follow us on"
+    },
+    {
+        "type": "text",
+        "id": "link",
+        "label": "Link to your Instagram account"
+    },
+    {
+        "type": "text",
+        "id": "link_text",
+        "label": "Text for your Instagram account link",
+        "default": "@panzerglass"
+    },
+    {
+        "type": "text",
+        "id": "token",
+        "label": "Instagram Access token",
+        "default": "1362124742.7b33a8d.6613a3567f0a425f9852055b8ef743b7"
+    }],
+    "presets": [{
+        "name": "Instagram feed",
+        "category": "Instagram feed"
+    }]
+}
+{% endschema %}
