@@ -1,11 +1,13 @@
 {% assign s = section.settings %}
-<div class="info-section__inner{% if s.reverse %} reverse{% endif %}">
-    <div class="info-section__image">
-        {{ s.img | img_url: 'master' | img_tag: 'Info image', 'info-section__image__img' }}
-    </div>
-    <div class="info-section__text">
-        <h2 class="h1">{{ s.headline }}</h2>
-        {{ s.text }}
+<div class="container">
+    <div class="info-section__inner{% if s.reverse %} reverse{% endif %}">
+        <div class="info-section__image">
+            {{ s.img | img_url: 'master' | img_tag: 'Info image', 'info-section__image__img' }}
+        </div>
+        <div class="info-section__text">
+            <h2 class="h1">{{ s.headline }}</h2>
+            {{ s.text }}
+        </div>
     </div>
 </div>
 

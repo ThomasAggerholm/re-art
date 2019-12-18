@@ -22,8 +22,10 @@
     <main role="main" class="site-main">
     {% section 'header' %}
     
+    
     {{ content_for_layout }}
     </main>
+    
     {% section 'footer' %}
 
     <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
@@ -32,6 +34,7 @@
     {{ 'ScrollMagic.min.js' | asset_url | script_tag }}
     {{ 'animation.gsap.min.js' | asset_url | script_tag }}
     {{ 'slick.min.js' | asset_url | script_tag }}
+    {{ 'Draggable.min.js' | asset_url | script_tag }}
     <script>
         var productUrls = jQuery('.product-url');
         var button = jQuery('.button');

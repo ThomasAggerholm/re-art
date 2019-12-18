@@ -6,13 +6,18 @@
     {% assign bs = b.settings %}
         <div class="hero__inner" {% if bs.center_text %}style="align-items: center;"{% endif %}>
             <div class="hero__text-wrapper">
-                <h1 class="hero__title" style="color:{{ s.text_color }};">{{ bs.headline }}</h1>
-                <p class="hero__text" style="color:{{ s.text_color }};">{{ bs.text }}</p>
-                <a class="btn btn--transparent hero__btn" href="{{ s.btn_url }}">{{ bs.btn_text }}</a>
+                <h1 class="hero__title" style="color:{{ bs.text_color }};">{{ bs.headline }}</h1>
+                <p class="hero__text" style="color:{{ bs.text_color }};">{{ bs.text }}</p>
+                <span class="hero__btn"><a class="btn btn--transparent hero__btn" href="{{ bs.btn_url }}">{{ bs.btn_text }}</a></span>
             </div>
             {{ bs.image | img_url: 'master' | img_tag: 'Hero', 'hero__image' }}
         </div>
     {% endfor %}
+    </div>
+
+    <div class="hero__slider__controls">
+        <div class="prev">{{ 'arrow.svg' | asset_url | img_tag }}</div>
+        <div class="next">{{ 'arrow.svg' | asset_url | img_tag }}</div>
     </div>
 
     <div class="hero__scroll"><a href="#featured-collection">Scroll</a></div>

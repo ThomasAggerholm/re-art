@@ -1,4 +1,4 @@
-<div class="section container grid" id="collection">
+<div class="container" id="collection">
 
     <div class="collection-main__header talign-center">
         <h1 class="headline-small">Plakater</h1>
@@ -7,7 +7,14 @@
         </p>
     </div>
 
-    {% include 'collection-sidebar' %}
+    <button id="poster-match__btn" class="btn">Poster match</button>
+    <div class="poster-match">
+        {% include 'poster-match' %}
+    </div>
+
+    {%- comment -%}
+        {% include 'collection-sidebar' %}
+    {%- endcomment -%}
 
     {% include 'collection-main' %}
 

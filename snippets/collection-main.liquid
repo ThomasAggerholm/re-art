@@ -14,9 +14,9 @@
 
         {% paginate collection.products by 16 %}
             <div class="collection-grid__wrapper">
-                <div class="collection-grid grid">
+                <div class="collection-grid">
                 {% if collection.products_count > 0 %}
-                    {% for product in collection.products %}
+                    {% for p in collection.products %}
                         {% include 'product-card' %}
                     {% endfor %}
                 {% else %}

@@ -1,61 +1,29 @@
 //-------------- Frontpage animations --------------//
 
-// Wait until the document has loaded
-document.addEventListener('DOMContentLoaded', function() {
-
-    // Call frontpage animation function
-    //frontPageAnim()
-})
-
-// Frontpage animation function
-// const frontPageAnim = function() {
-//     const title = document.querySelector('.hero__title')
-//     const text = document.querySelector('.hero__text')
-//     const button = document.querySelector('.hero__btn')
-//     const tl = new gsap.timeline()
-
-//     tl.from(title, {
-//         duration: 1,
-//         opacity: 0,
-//         y: 30,
-//         delay: 1,
-//         ease: 'power3.inOut'
-//     })
-//     .from(text, {
-//         duration: 1,
-//         opacity: 0,
-//         y: 30,
-//         ease: 'power3.inOut'
-//     }, '-=0.8')
-//     .from(button, {
-//         duration: 1,
-//         opacity: 0,
-//         y: 30,
-//         ease: 'power3.inOut' 
-//     }, '-=0.8')
-// }
-
 // Frontpage featured collection scroll animations
 const controller = new ScrollMagic.Controller()
 
-const tl = new gsap.timeline()
+var tl = new gsap.timeline()
 
 const featureTitle = document.querySelector('.featured-collection__title')
 const featureSlider = document.querySelector('.js-featured-slider')
+const featureCollection = document.querySelector('.featured-collection')
+
+if ( featureCollection != null ) {
 
 tl.to(featureTitle, {
     delay: 0.3,
     duration: 1,
     opacity: 1,
     y: 0,
-    ease: 'power3.inOut'
+    ease: 'power3.out'
 })
-.to(featureSlider, {
-    duration: 1,
+tl.to(featureSlider, {
+    duration: 1.2,
     opacity: 1,
     y: 0,
-    ease: 'power3.inOut'
-}, '-=0.5')
+    ease: 'power3.out'
+}, '-=0.8')
 
 const scene = new ScrollMagic.Scene({
     triggerElement: '.featured-collection',
@@ -63,6 +31,7 @@ const scene = new ScrollMagic.Scene({
 })
     .setTween(tl)
     .addTo(controller)
+}
 
 
 // Frontpage featured category scroll animations
@@ -82,6 +51,54 @@ const scene3 = new ScrollMagic.Scene({
     .addTo(controller)
 
 
+// Frontpage info section scroll animations
+var tl4 = new gsap.timeline()
+
+const
+    infoImg = document.querySelector('.info-section__image__img'),
+    infoHeadline = document.querySelector('.info-section__text h2'),
+    infoText = document.querySelector('.info-section__text p'),
+    infoSection = document.querySelector('.info-section')
+
+if ( infoSection != null ) {
+
+tl4.fromTo(infoImg, {
+    scale: 1.2
+},
+{
+    duration: 1,
+    scale: 1
+})
+.fromTo(infoHeadline, {
+    opacity: 0,
+    y: 50
+},
+{
+    duration: 1,
+    opacity: 1,
+    y: 0,
+    ease: 'power3.Out'
+}, '-=0.5')
+.fromTo(infoText, {
+    opacity: 0,
+    y: 50
+},
+{
+    duration: 1,
+    opacity: 1,
+    y: 0,
+    ease: 'power3.Out'
+}, '-=0.8')
+
+const scene4 = new ScrollMagic.Scene({
+    triggerElement: '.info-section',
+    triggerHook: '100%'
+})
+    .setTween(tl4)
+    .addTo(controller)
+
+}
+
 
 //-------------- Slidenav animations --------------//
 const
@@ -98,20 +115,17 @@ const
     menuItemLinks = document.querySelectorAll('.slidenav__nav .menu__item__link'),
     slideTl = new gsap.timeline({ paused: true })
 
-    menuItemLinks.forEach((menuItemLink, i) => {
-        menuItemLink.addEventListener('mouseenter', function() {
-            slideLeftLinkTitle.classList.add('active')
-            let itemName = menuItemLink.getAttribute('data-item-name')
-            slideLeftLinkTitle.innerHTML = itemName
-        })
 
-        menuItemLink.addEventListener('mouseleave', function() {
-            slideLeftLinkTitle.classList.remove('active')
-        })
-    })
-
-
-slideTl.fromTo(slideLayer, {
+slideTl.fromTo(slideNavInner, {
+    opacity: 0,
+    pointerEvents: 'none'
+},
+{
+    opacity: 1,
+    pointerEvents: 'auto',
+    duration: 0
+})
+.fromTo(slideLayer, {
     transformOrigin: 'right top',
     height: 0,
     skewY: 2
@@ -152,25 +166,30 @@ slideTl.fromTo(slideLayer, {
 }, '-=0.5')
 .fromTo(menuItems, {
     opcity: 0,
-    y: 20
+    y: 20,
+    x: 0
 },
 {
     duration: 0.7,
     opacity: 1,
     y: 0,
+    x: 0,
     ease: 'power3.out',
     stagger: 0.1
 }, '-=0.9')
 .fromTo(slideLeft, {
     opacity: 0,
-    y: 50
+    y: 50,
+    pointerEvents: 'none'
 },
 {
     duration: 1,
     opacity: 1,
     y: 0,
-    ease: 'power3.out'
+    ease: 'power3.out',
+    pointerEvents: 'auto'
 }, '-=0.7')
+
 
 const openSlideNav = function() {
     slideTl.play()
@@ -182,6 +201,80 @@ const closeSlideNav = function() {
 
 burger.addEventListener('click', openSlideNav)
 slidenavClose.addEventListener('click', closeSlideNav)
+
+
+
+// Instagram feed
+const instaWrapper = document.querySelector('.instagram-feed')
+
+if ( instaWrapper != null ) {
+
+var token = instaWrapper.getAttribute('data-string').replace(/%/g, '.'),
+num_photos = 10, // maximum 20
+container = document.querySelector( '#instafeed' ), // it is our <ul id="rudr_instafeed">
+scrElement = document.createElement( 'script' );
+
+window.mishaProcessResult = function( { data } ) {
+    data.forEach(post => {
+        const imgUrl = post.images.low_resolution.url
+        container.innerHTML = container.innerHTML + `<li class="instagram-feed__image"><img src="${imgUrl}"></li>`
+    });
+}
+
+scrElement.setAttribute( 'src', 'https://api.instagram.com/v1/users/self/media/recent?access_token=' + token + '&count=' + num_photos + '&callback=mishaProcessResult' );
+document.body.appendChild( scrElement );
+
+}
+
+
+
+// Poster match
+function posterMatch() {
+    const
+        imgs1 = document.querySelectorAll('.js-match-img1'),
+        imgs2 = document.querySelectorAll('.js-match-img2'),
+        frame1 = document.querySelector('.poster-match__frame1'),
+        frame2 = document.querySelector('.poster-match__frame2'),
+        bg1 = document.querySelector('.poster-match__frame1__bg'),
+        bg2 = document.querySelector('.poster-match__frame2__bg'),
+        frameGrid1 = document.querySelector('.poster-match__frame1-grid'),
+        frameGrid2 = document.querySelector('.poster-match__frame2-grid'),
+        btn = document.querySelector('#poster-match__btn'),
+        posterMatch = document.querySelector('.poster-match')
+
+    btn.addEventListener('click', function() {
+        posterMatch.classList.add('is-visible')
+    })
+
+    frame1.addEventListener('click', function() {
+        frameGrid1.classList.add('is-visible')
+    })
+
+    frame2.addEventListener('click', function() {
+        frameGrid2.classList.add('is-visible')
+    })
+
+    imgs1.forEach(img1 => {
+        img1.addEventListener('click', function() {
+            let src = this.getAttribute('src')
+            bg1.setAttribute('src', src)
+            frameGrid1.classList.remove('is-visible')
+        })
+    });
+
+    imgs2.forEach(img2 => {
+        img2.addEventListener('click', function() {
+            let src = this.getAttribute('src')
+            bg2.setAttribute('src', src)
+            frameGrid2.classList.remove('is-visible')
+        })
+    });
+
+}
+
+posterMatch()
+
+
 
 //-------------- Document Ready --------------//
 $(document).ready(function () {
@@ -211,8 +304,9 @@ $(document).ready(function () {
                 slidesToScroll: 1,
                 autoplay: true,
                 autoplaySpeed: speed,
-                arrows: false,
-                infinite: true
+                infinite: true,
+                nextArrow: '.hero__slider__controls .next',
+                prevArrow: '.hero__slider__controls .prev'
             })
         }
     }
@@ -243,4 +337,29 @@ $(document).ready(function () {
 
 
 
+
+    $(function () {
+        $(":file").change(function () {
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = imageIsLoaded;
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+    });
+
+    function imageIsLoaded(e) {
+        $('#myImg').attr('src', e.target.result);
+        $('#yourImage').attr('src', e.target.result);
+    };
+
+
+
 });
+
+
+// Draggable
+gsap.registerPlugin(Draggable)
+
+Draggable.create(".box", {type:"x,y", edgeResistance:0.65, bounds:"#container"});

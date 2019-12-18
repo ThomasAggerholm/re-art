@@ -1,33 +1,51 @@
-{% assign s = section.settings %}
-
 <div class="site-footer__inner container">
     <div class="site-footer__col">
-        <p class="site-footer__text">{{ s.text }}</p>
+        <p class="site-footer__text">Har du nogle spørgsmål?</p>
         <h3 class="site-footer__heading"><a href="tel:+4521475921">+45 21 47 59 21</a></h3>
         <p class="site-footer__text">Mandag - Torsdag: 8.00 - 16.00</p>
         <p class="site-footer__text">Fredag: 8.00 - 15.00</p>
         <h3 class="site-footer__heading"><a href="mailto:info@re-art.dk">info@re-art.dk</a></h3>
     </div>
 
-    <div class="site-footer__col">
-        <h3 class="site-footer__heading">Kategorier</h3>
-    </div>
+    {% for b in section.blocks %}
+    {% assign bs = b.settings %}
+    {% assign nav = bs.nav %}
+        <div class="site-footer__col">
+            <h3 class="site-footer__heading">{{ bs.title }}</h3>
 
-    <div class="site-footer__col">
-        <h3 class="site-footer__heading">Nyttige links</h3>
-    </div>
+            <div class="site-footer__col__nav">
+                <ul class="site-footer__col__nav__menu">
+                {% for link in linklists[nav].links %}
+                    <li class="site-footer__col__nav__item">
+                        <a href="{{ link.url }}" class="site-footer__col__nav__item__link" data-item-name="{{ link.title }}">{{ link.title }}</a>
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+    {% endfor %}
 </div>
 
 {% schema %}
     {
         "name": "Footer",
         "class": "site-footer",
-        "settings": [
+        "blocks": [
             {
-                "type": "text",
-                "id": "text",
-                "label": "Overskrift",
-                "default": "Har du et spørgsmål?"
+                "type": "footer_col",
+                "name": "Footer kolonne",
+                "settings": [
+                    {
+                        "type": "text",
+                        "id": "title",
+                        "label": "Overskrift"
+                    },
+                    {
+                        "type": "link_list",
+                        "id": "nav",
+                        "label": "Vælg linkliste"
+                    }
+                ]
             }
         ]
     }

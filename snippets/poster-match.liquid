@@ -1,0 +1,27 @@
+<div class="poster-match__inner container">
+    <h1>Poster match</h1>
+
+    <div class="poster-match__frame1">
+        <img src="" class="poster-match__frame1__bg">
+    </div>
+
+    <div class="poster-match__frame2">
+        <img src="" class="poster-match__frame2__bg">
+    </div>
+
+    <div class="poster-match__frame1-grid">
+        <div class="poster-match__grid1">
+            {% for product in collection.products %}
+                {{ product.featured_image | img_url: 'large' | img_tag: 'Produktbillede', 'js-match-img1' }}
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="poster-match__frame2-grid">
+        <div class="poster-match__grid2">
+            {% for product in collection.products %}
+                {{ product.featured_image | img_url: 'large' | img_tag: 'Produktbillede', 'js-match-img2' }}
+            {% endfor %}
+        </div>
+    </div>
+</div>
