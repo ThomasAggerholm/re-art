@@ -100,6 +100,7 @@ const scene4 = new ScrollMagic.Scene({
 }
 
 
+
 //-------------- Slidenav animations --------------//
 const
     burger = document.querySelector('.js-burger'),
@@ -328,6 +329,18 @@ $(document).ready(function () {
             e.preventDefault()
         }
         $(this).siblings(grandChildMenu).slideToggle(250)
+    })
+
+
+    //-------------- Search toggle --------------//
+    const
+        searchIcon = $('.js-search-icon'),
+        searchWrapper = $('.js-search-form'),
+        searchInput = $('.js-search-input')
+
+    searchIcon.click(function() {
+        searchInput.focus()
+        searchWrapper.toggleClass('active')
     })
 
 
