@@ -1,5 +1,9 @@
-{% assign s = section.settings %}
-{% assign nav = s.nav %}
+{% if section.blocks.size > 0 %}
+    {% assign nav = bs.nav %}
+{% else %}
+    {% assign s = section.settings %}
+    {% assign nav = s.nav %}
+{% endif %}
 
 <ul class="{{ class }}__menu">
 {% for link in linklists[nav].links %}

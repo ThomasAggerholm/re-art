@@ -203,8 +203,25 @@ burger.addEventListener('click', openSlideNav)
 slidenavClose.addEventListener('click', closeSlideNav)
 
 
+//-------------- Mobile navigation toggle --------------//
+const
+    body = document.querySelector('body'),
+    mobileBurger = document.querySelector('.js-mobile-burger'),
+    mobileNav = document.querySelector('.js-mobile-nav')
 
-// Instagram feed
+mobileBurger.addEventListener('click', function() {
+    if ( body.classList.contains('nav-open') ) {
+        this.classList.remove('nav-open')
+        body.classList.remove('nav-open')
+    } else {
+        this.classList.add('nav-open')
+        body.classList.add('nav-open')
+    }
+})
+
+
+
+//-------------- Instagram feed --------------//
 const instaWrapper = document.querySelector('.instagram-feed')
 
 if ( instaWrapper != null ) {
@@ -228,7 +245,7 @@ document.body.appendChild( scrElement );
 
 
 
-// Poster match
+//-------------- Poster match --------------//
 function posterMatch() {
     const
         imgs1 = document.querySelectorAll('.js-match-img1'),
@@ -275,7 +292,6 @@ function posterMatch() {
     }
 
 }
-
 posterMatch()
 
 
@@ -283,7 +299,40 @@ posterMatch()
 //-------------- Document Ready --------------//
 $(document).ready(function () {
 
-    // Upload image
+
+    //-------------- Mobile menu toggles --------------//
+    const
+        toggle = $('.js-mobile-toggle'),
+        mobileMenu = $('.mobile-header__navigation__menu'),
+        childMenuItem = $('.mobile-menu__item__link'),
+        ChildMenu = $('.child-link__mobile-menu'),
+        grandChildItem = $('.child-link'),
+        grandChildMenu = $('.megamenu__grandchild')
+
+    toggle.click(function(e) {
+        if ( $(this).parent().hasClass('has-children') ) {
+            e.preventDefault()
+        }
+        $(this).siblings(mobileMenu).slideToggle(250)
+    })
+
+    childMenuItem.click(function(e) {
+        if ( $(this).parent().hasClass('has-children') ) {
+            e.preventDefault()
+        }
+        $(this).siblings(ChildMenu).slideToggle(250)
+    })
+
+    grandChildItem.click(function(e) {
+        if ( $(this).parent().hasClass('has-children') ) {
+            e.preventDefault()
+        }
+        $(this).siblings(grandChildMenu).slideToggle(250)
+    })
+
+
+
+    //-------------- Upload image --------------//
     $(function () {
         $(":file").change(function () {
           if (this.files && this.files[0]) {
@@ -295,13 +344,19 @@ $(document).ready(function () {
         });
     });
       
-      function imageIsLoaded(e) {
+    function imageIsLoaded(e) {
         $('#myImg').attr('src', e.target.result);
         $('#yourImage').attr('src', e.target.result);
-      };
+    };
 
 
-    // Smooth scroll to ID
+    //-------------- Drag images around --------------//
+    gsap.registerPlugin(Draggable)
+
+    Draggable.create(".frame", {type:"x,y", edgeResistance:0.65, bounds:".poster-match__canvas"});
+
+
+    //-------------- Smooth scroll to ID --------------//
     $('a[href*="#"]').on('click', function(e) {
         e.preventDefault()
       
@@ -314,7 +369,7 @@ $(document).ready(function () {
         )
       })
 
-    // Hero slider
+    //-------------- Hero slider --------------//
     function heroSliderInit() {
         if ($('.hero__slider').length > 0) {
 
@@ -333,7 +388,7 @@ $(document).ready(function () {
     }
     heroSliderInit()
 
-    // Featured collection slider
+    //-------------- Featured collection slider --------------//
     $('.js-featured-slider').slick({
         slidesToShow: 6,
         slidesToScroll: 2,
@@ -359,28 +414,5 @@ $(document).ready(function () {
 
 
 
-    $(function () {
-        $(":file").change(function () {
-            if (this.files && this.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = imageIsLoaded;
-                reader.readAsDataURL(this.files[0]);
-            }
-        });
-    });
-
-    function imageIsLoaded(e) {
-        $('#myImg').attr('src', e.target.result);
-        $('#yourImage').attr('src', e.target.result);
-    };
-
-
-
+    
 });
-
-
-// Draggable
-gsap.registerPlugin(Draggable)
-
-Draggable.create(".frame", {type:"x,y", edgeResistance:0.65, bounds:".poster-match__canvas"});
