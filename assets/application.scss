@@ -17,7 +17,7 @@ $mobile-header-height: 50px;
 
 // Icons
 .icon {
-    width: 20px;
+    width: 25px;
     height: 100%;
 }
 
@@ -938,12 +938,51 @@ img {
         background: $grey;
 
         pointer-events: none;
+
+        &__image-wrapper {
+            position: absolute;
+            top: 110px;
+            right: 130px;
+            width: 250px;
+
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        &__bottom {
+            position: absolute;
+            bottom: 60px;
+            left: 100px;
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+
+            &__col {
+                max-width: 300px;
+                margin-right: 130px;
+
+                opacity: 0;
+                transform: translateY(20px);
+
+                h3 {
+                    margin-bottom: 10px;
+                }
+            }
+
+            &__links {
+                a {
+                    &:not(:last-of-type) {
+                        margin-right: 10px;
+                    }
+                }
+            }
+        }
     }
 
     &__nav {
         position: absolute;
-        top: 150px;
-        left: 150px;
+        top: 110px;
+        left: 100px;
 
         h3 {
             margin-bottom: 15px;
@@ -1954,24 +1993,21 @@ img {
     }
 }
 
-// draggable test
-#container {
-    position: relative;
-    width: 800px;
-    height: 600px;
-    margin: 50px auto;
-    background: #f5f6f5;
+// Product page
+.product {
+    width: 100%;
 
-    .box {
-        width: 100px;
-        height: 200px;
+    &__inner {
+        display: flex;
+        align-items: flex-start;
+    }
 
-        &.red {
-            background: red;
-        }
+    &__images {
+        flex: 1;
+    }
 
-        &.green {
-            background: green;
-        }
+    &__info {
+        flex: 2;
+        padding: 30px;
     }
 }

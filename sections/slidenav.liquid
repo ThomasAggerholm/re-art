@@ -9,11 +9,33 @@
     </div>
 
     <div class="slidenav__right">
-        <div class="slidenav__close">Close</div>
+        <div class="slidenav__close">{% include 'icons' with 'close' %}</div>
 
         <div class="slidenav__nav">
             <h3>{{ s.text }}</h3>
             {% include 'linklist' with class: 'slidenav__linklist' %}
+        </div>
+
+        <div class="slidenav__right__image-wrapper">
+            {{ s.img_right | img_url: 'large' | img_tag }}
+        </div>
+
+        <div class="slidenav__right__bottom">
+            <div class="slidenav__right__bottom__col menu__item">
+                <h3>Følg os</h3>
+                <div class="slidenav__right__bottom__links">
+                    <a href="#" target="_blank">Facebook</a>
+                    <a href="#" target="_blank">Instagram</a>
+                </div>
+            </div>
+
+            <div class="slidenav__right__bottom__col menu__item">
+                <h3>Kontakt os</h3>
+                <div class="slidenav__right__bottom__links">
+                    <a href="tel:+4521475921" target="_blank">Tlf: 21 47 59 21</a>
+                    <a href="mailto:info@re-art.dk" target="_blank">Mail: info@re-art.dk</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -39,6 +61,11 @@
                 "type": "image_picker",
                 "id": "img",
                 "label": "Vælg billede til venstre side af menuen"
+            },
+            {
+                "type": "image_picker",
+                "id": "img_right",
+                "label": "Vælg billede til højre side af menuen"
             }
         ]
     }

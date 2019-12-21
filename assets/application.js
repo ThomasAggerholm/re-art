@@ -112,8 +112,9 @@ const
     slideLayer = document.querySelector('.slidenav__layer'),
     slidenavClose = document.querySelector('.slidenav__close'),
     slidenavNav = document.querySelector('.slidenav__nav'),
-    menuItems = slidenavNav.querySelectorAll('.menu__item'),
+    menuItems = slideRight.querySelectorAll('.menu__item'),
     menuItemLinks = document.querySelectorAll('.slidenav__nav .menu__item__link'),
+    rightImage = document.querySelector('.slidenav__right__image-wrapper')
     slideTl = new gsap.timeline({ paused: true })
 
 
@@ -178,6 +179,16 @@ slideTl.fromTo(slideNavInner, {
     ease: 'power3.out',
     stagger: 0.1
 }, '-=0.9')
+.fromTo(rightImage, {
+    opacity: 0,
+    y: 50,
+},
+{
+    opacity: 1,
+    y: 0,
+    ease: 'power3.out',
+    duration: 1
+}, '-=0.7')
 .fromTo(slideLeft, {
     opacity: 0,
     y: 50,
