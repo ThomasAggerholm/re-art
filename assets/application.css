@@ -81,7 +81,7 @@ img {
 .container {
   position: relative;
   width: 100%;
-  max-width: 1440px;
+  max-width: 1620px;
   margin: 0 auto;
   padding: 0 5%;
 }
@@ -851,7 +851,7 @@ img {
 
 .hero__scroll {
   position: absolute;
-  bottom: 10%;
+  bottom: 50px;
   left: 50%;
   -webkit-transform: translateX(-50%) rotate(-90deg);
           transform: translateX(-50%) rotate(-90deg);
@@ -1524,12 +1524,34 @@ img {
   cursor: pointer;
 }
 
-.poster-match__frame1, .poster-match__frame2 {
+.poster-match__canvas {
   position: relative;
+  width: 100%;
+  background: #f6f5f6;
+}
+
+.poster-match__canvas:after {
+  content: '';
+  display: block;
+  padding-top: 56.25%;
+}
+
+.poster-match__canvas #myImg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.poster-match__frame1, .poster-match__frame2 {
+  position: absolute;
   display: inline-block;
-  width: 300px;
-  height: 450px;
-  margin-right: 20px;
+  width: 150px;
+  height: 200px;
   border: 2px solid #000000;
   cursor: pointer;
 }
@@ -1543,6 +1565,16 @@ img {
   -o-object-fit: cover;
      object-fit: cover;
   margin: 0;
+}
+
+.poster-match__frame1 {
+  top: 0;
+  left: 0;
+}
+
+.poster-match__frame2 {
+  top: 0;
+  left: 150px;
 }
 
 .poster-match__frame1-grid, .poster-match__frame2-grid {

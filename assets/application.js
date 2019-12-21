@@ -242,33 +242,37 @@ function posterMatch() {
         btn = document.querySelector('#poster-match__btn'),
         posterMatch = document.querySelector('.poster-match')
 
-    btn.addEventListener('click', function() {
-        posterMatch.classList.add('is-visible')
-    })
+    if ( posterMatch != null ) {
 
-    frame1.addEventListener('click', function() {
-        frameGrid1.classList.add('is-visible')
-    })
-
-    frame2.addEventListener('click', function() {
-        frameGrid2.classList.add('is-visible')
-    })
-
-    imgs1.forEach(img1 => {
-        img1.addEventListener('click', function() {
-            let src = this.getAttribute('src')
-            bg1.setAttribute('src', src)
-            frameGrid1.classList.remove('is-visible')
+        btn.addEventListener('click', function() {
+            posterMatch.classList.add('is-visible')
         })
-    });
 
-    imgs2.forEach(img2 => {
-        img2.addEventListener('click', function() {
-            let src = this.getAttribute('src')
-            bg2.setAttribute('src', src)
-            frameGrid2.classList.remove('is-visible')
+        frame1.addEventListener('click', function() {
+            frameGrid1.classList.add('is-visible')
         })
-    });
+
+        frame2.addEventListener('click', function() {
+            frameGrid2.classList.add('is-visible')
+        })
+
+        imgs1.forEach(img1 => {
+            img1.addEventListener('click', function() {
+                let src = this.getAttribute('src')
+                bg1.setAttribute('src', src)
+                frameGrid1.classList.remove('is-visible')
+            })
+        });
+
+        imgs2.forEach(img2 => {
+            img2.addEventListener('click', function() {
+                let src = this.getAttribute('src')
+                bg2.setAttribute('src', src)
+                frameGrid2.classList.remove('is-visible')
+            })
+        });
+
+    }
 
 }
 
@@ -278,6 +282,23 @@ posterMatch()
 
 //-------------- Document Ready --------------//
 $(document).ready(function () {
+
+    // Upload image
+    $(function () {
+        $(":file").change(function () {
+          if (this.files && this.files[0]) {
+            var reader = new FileReader();
+      
+            reader.onload = imageIsLoaded;
+            reader.readAsDataURL(this.files[0]);
+          }
+        });
+    });
+      
+      function imageIsLoaded(e) {
+        $('#myImg').attr('src', e.target.result);
+        $('#yourImage').attr('src', e.target.result);
+      };
 
 
     // Smooth scroll to ID
@@ -362,4 +383,4 @@ $(document).ready(function () {
 // Draggable
 gsap.registerPlugin(Draggable)
 
-Draggable.create(".box", {type:"x,y", edgeResistance:0.65, bounds:"#container"});
+Draggable.create(".frame", {type:"x,y", edgeResistance:0.65, bounds:".poster-match__canvas"});
