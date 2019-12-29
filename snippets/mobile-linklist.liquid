@@ -1,0 +1,33 @@
+{% if section.blocks.size > 0 %}
+    {% assign nav = bs.nav %}
+{% else %}
+    {% assign s = section.settings %}
+    {% assign nav = s.nav %}
+{% endif %}
+
+<ul class="{{ class }}__menu">
+{% for link in linklists[nav].links %}
+    <li class="mobile-menu__item{% if link.levels > 0 %} has-children{% endif %}">
+        <a href="{{ link.url }}" class="mobile-menu__item__link" data-item-name="{{ link.title }}">{{ link.title }}</a>
+
+        {% if link.links != blank %}
+           <ul class="child-link__mobile-menu"> 
+                {% for child_link in link.links %}
+                    <li class="child-link__mobile-menu__item {% if link.levels > 0 %} has-children{% endif %}">
+                        <a class="child-link" href="{{ child_link.url }}">{{ child_link.title }}</a>
+                        <div class="megamenu__grandchild">
+                            <ul>
+                                {% for grandchild_link in child_link.links %}
+                                    <li class="grandchild-link__menu__item">
+                                        <a class="grandchild-link" href="{{ grandchild_link.url }}">{{ grandchild_link.title }}</a>
+                                    </li> 
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </li>
+{% endfor %}
+</ul>

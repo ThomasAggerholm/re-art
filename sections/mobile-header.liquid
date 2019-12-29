@@ -1,0 +1,50 @@
+<header class="mobile-header">
+    <div class="site-header__inner container">
+        <div class="mobile-header__logo__wrapper">
+            {% comment %}<a href="/">{{ 'logo.png' | asset_img_url: 'medium' | img_tag: 'logo', 'site-header__logo' }}</a>{% endcomment %}
+            <a href="/" class="logo">RE-ART</a>
+        </div>
+
+        <div class="mobile-header__icons">
+            <div class="mobile-header__search">{{ 'search.svg' | asset_url | img_tag: 'search', 'search-icon js-search-icon' }}</div>
+            <div class="mobile-header__cart">{{ 'cart.svg' | asset_url | img_tag: 'cart', 'cart-icon' }} <span class="site-header__cart-count js-cart-count">{{ cart.item_count }}</span></div>
+            <div class="mobile-header__burger js-mobile-burger">
+                <div class="mobile-header__burger__line"></div>
+                <div class="mobile-header__burger__line"></div>
+                <div class="mobile-header__burger__line"></div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="site-header__search__wrapper js-search-form">
+    <form action="/search" method="get" class="site-header__search__form" role="search">
+        <input type="search" name="q" placeholder="Søg blandt plakater" class="site-header__search__input js-search-input">
+    </form>
+</div>
+ 
+{% include 'mobile-nav' %}
+
+{% schema %}
+    {
+        "name": "Mobil header",
+        "class": "mobile-header__wrapper",
+        "blocks": [
+            {
+                "type": "mobile_navigation",
+                "name": "Mobile navigation",
+                "settings": [
+                    {
+                        "type": "text",
+                        "id": "nav_title",
+                        "label": "Navigation overskrift"
+                    },
+                    {
+                        "type": "link_list",
+                        "id": "nav",
+                        "label": "Vælg navigationsmenu"
+                    }
+                ]
+            }
+        ]
+    }
+{% endschema %}

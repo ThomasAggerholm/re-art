@@ -1,6 +1,6 @@
 {% if cart.item_count > 0 %}
-  <h1>cart</h1>
-  <form action="/cart" method="post" novalidate>
+    {% section 'cart-template' %}
+  {% comment %} <form action="/cart" method="post" novalidate>
     <table>
       <thead>
         <th colspan="2">Prod</th>
@@ -39,7 +39,7 @@
       <button type="submit" name="update">Update</button>
       <button type="submit" name="checkout">Checkout</button>
     </div>
-  </form>
+  </form> {% endcomment %}
 {% else %}
   <h2>cart</h2>
   Cart is empty

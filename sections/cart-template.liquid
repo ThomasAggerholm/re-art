@@ -1,0 +1,67 @@
+<div class="cart">
+    <div class="cart__header container">
+        <h1>Indkøbskurv <span class="cart__count">({{ cart.item_count }})</span></h1>
+    </div>
+    
+    <div class="cart__inner container">
+        <div class="cart__info">
+            <div class="cart__info__line-items">
+                {% for item in cart.items %}
+                    <div class="cart__line-item">
+                        {{ item.image | img_url: 'medium' | img_tag }}
+                        <div class="cart__line-item__content">
+                            <p class="cart__line-item__title h4">{{ item.title }}</p>
+                            <div class="cart__line-item__content__frame">
+                                <input id="ramme" type="checkbox">
+                                <label for="ramme">Tilkøb ramme</label>
+                            </div>
+                        </div>
+
+                        <div class="cart__line-item__quantity">
+                            <div class="cart__line-item__quantity--picker">
+                                <div class="quantity-btn minus">-</div>
+                                <div class="quantity-btn value">1</div>
+                                <div class="quantity-btn plus">+</div>
+                            </div>
+                            <a class="cart__line-item__remove" href="/cart/change?line={{ forloop.index }}&amp;quantity=0">Fjern vare</a>
+                        </div>
+
+                        <div class="cart__line-item__price">
+                            {{ item.price | money_without_trailing_zeros }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="cart__info__payment"></div>
+        </div>
+
+        <div class="cart__total">
+        <form action="/cart" method="post" novalidate>
+            <div class="cart__total__header">
+                <h2>Subtotal</h2>
+                <p>{{ cart.total_price | money_without_trailing_zeros }}</p>
+            </div>
+
+            <div class="cart__total__delivery">
+                <h4>Fragt</h4>
+                <p>30 kr</p>
+            </div>
+
+            <div class="cart__total__total">
+                <h2>Total</h2>
+                {% assign delivery = 3000 %}
+                {% assign total = cart.total_price | plus: delivery %}
+                <p>{{ total | money_without_trailing_zeros }}</p>
+            </div>
+
+            <div class="cart__total__footer">
+                <input id="terms" type="checkbox">
+                <label for="terms">Jeg accepterer handelsbetingelserne</label>
+                <input class="cart__total__footer__qta" type="number" name="updates[]" id="updates_{{ item.key }}" value="{{ item.quantity }}" min="0">
+                <button class="btn" type="submit" name="checkout">Gå til checkout</button>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>

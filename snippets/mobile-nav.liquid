@@ -1,0 +1,11 @@
+<div class="mobile-nav js-mobile-nav">
+    <div class="mobile-nav__inner">
+        {% for block in section.blocks %}
+        {% assign bs = block.settings %}
+            <div class="mobile-nav__wrapper">
+                <h3 class="mobile-nav__title js-mobile-toggle">{{ bs.nav_title }}</h3>
+                {% include 'mobile-linklist' with class: 'mobile-header__navigation' %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
