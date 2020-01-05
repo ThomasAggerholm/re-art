@@ -3,57 +3,71 @@
 <div class="product">
 <div class="product__inner container">
     <div class="product__images">
-        <img class="product__images__featured" src="{{ featured_image | img_url: 'large' }}" alt="{{ featured_image.alt | escape }}" id="ProductPhotoImg">
-        
-        <div class="product__images__thumbnails">
-            {% for image in product.images %}
-                <img class="product__images__thumbnail" src="{{ image.src | img_url: 'compact' }}" alt="{{ image.alt | escape }}">
-            {% endfor %}
+        <div class="product__images__slider">
+            <span class="featured-image__wrapper">
+                <img class="product__images__featured" src="{{ featured_image | img_url: 'master' }}" alt="{{ featured_image.alt | escape }}" data-image="{{ featured_image | img_url: 'master', scale: 2 }}">
+            </span>
         </div>
+        
+        {% if product.images.size > 1 %}
+            <div class="product__images__thumbnails">
+                {% for image in product.images %}
+                    <img class="product__images__thumbnail" src="{{ image.src | img_url: 'master' }}" alt="{{ image.alt | escape }}" data-image="{{ image.src | img_url: 'master', scale: 2 }}">
+                {% endfor %}
+            </div>
+        {% endif %}
     </div>
 
     <div class="product__info">
         <div class="product__info__header">
             <h1 class="product__info__header__title">{{ product.title }}</h1>
-            <p class="product__info__header__price">{{ current_variant.price | money }}</p>
+            <p class="product__info__header__price js-product-price">{{ current_variant.price | money }}</p>
         </div>
 
         <div class="product__info__details">
-            <form action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm">
-                <select class="product__info__details__variant-select" name="id" id="productSelect">
-                    {% for variant in product.variants %}
-                        {% if variant.available %}
-                            <option value="{{ variant.id }}">
-                                {{ variant.title }} - {{ variant.price | money_with_currency }}
-                            </option>
-                        {% else %}
-                            <option disabled="disabled">
-                                {{ variant.title }} - sold out
-                            </option>
-                        {% endif %}
-                    {% endfor %}
-                </select>
+            <form action="/cart/add" method="post" enctype="multipart/form-data" id="add-to-cart-form">
+                {% if product.variants.size > 1 %}
+                    <select class="product__info__details__variant-select{% if product.variants.size <= 1 %} visually-hidden{% endif %} js-variant-select" name="id" id="productSelect">
+                        {% for variant in product.variants %}
+                            {% if variant.available %}
+                                <option value="{{ variant.id }}" data-price="{{ variant.price | money }}">
+                                    {{ variant.title }} - {{ variant.price | money_with_currency }}
+                                </option>
+                            {% else %}
+                                <option disabled="disabled">
+                                    {{ variant.title }} - sold out
+                                </option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                {% else %}
+                    <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                {% endif %}
 
-                <div class="product__info__details__bottom">
-                    <div class="product__info__quantity">
-                        <div class="product__info__quantity--picker">
-                            <div class="quantity-btn minus">-</div>
-                            <div class="quantity-btn value">1</div>
-                            <div class="quantity-btn plus">+</div>
+                <div class="product__info__details__bottom{% if product.variants.size <= 1 %} center{% endif %}">
+                    {% if product.variants.size > 1 %}
+                        <div class="product__info__quantity">
+                            <div class="product__info__quantity--picker js-prod-qty-picker">
+                                <button type="button" class="quantity-btn minus" disabled>-</button>
+                                <div class="quantity-btn value">1</div>
+                                <button type="button" class="quantity-btn plus">+</button>
+                            </div>
                         </div>
-                    </div>
+                    {% endif %}
             
-                    <input style="display:none;" type="number" id="Quantity" name="quantity" value="1" min="1">
-                    <button class="btn" type="submit" name="add" id="AddToCart">Tilføj til kurv</button>
+                    <input style="display:none;" type="number" id="quantity" name="quantity" value="1" min="1" {% if product.variants.size == 1 %}max="{{ product.variants.first.inventory_quantity }}"{% endif %}>
+                    <button class="btn" type="submit" name="add" id="add-to-cart-btn" {% unless product.available %}disabled{% endunless %}>
+                        {% if product.available %}
+                            Tilføj til kurv
+                        {% else %}
+                            Udsolgt
+                        {% endif %}
+                    </button>
                 </div>
             </form>
         </div>
 
         <div class="product__info__description-wrapper">
-            <div class="product__info__description-wrapper__frame">
-                <input id="buy-frame" type="checkbox"><label for="buy-frame"><b>Tilkøb af ramme (140 kr)</b></label>
-            </div>
-
             <div class="product__info__description">{{ product.description }}</div>
         </div>
     </div>

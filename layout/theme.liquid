@@ -19,6 +19,8 @@
 <body>
     {% section 'slidenav' %}
 
+    {% section 'cart-drawer' %}
+
     <main role="main" class="site-main">
     {% section 'header' %}
     {% section 'mobile-header' %}
@@ -31,6 +33,7 @@
 
     <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    {{ 'jquery.zoom.min.js' | asset_url | script_tag }}
     {{ 'gsap.min.js' | asset_url | script_tag }}
     {{ 'ScrollMagic.min.js' | asset_url | script_tag }}
     {{ 'animation.gsap.min.js' | asset_url | script_tag }}

@@ -1,20 +1,16 @@
 <div class="cart">
     <div class="cart__header container">
-        <h1>Indkøbskurv <span class="cart__count">({{ cart.item_count }})</span></h1>
+        <h1>Indkøbskurv <span class="cart__count" data-cart-count="{{ cart.item_count }}">({{ cart.item_count }})</span></h1>
     </div>
     
     <div class="cart__inner container">
         <div class="cart__info">
             <div class="cart__info__line-items">
                 {% for item in cart.items %}
-                    <div class="cart__line-item">
+                    <div class="cart__line-item js-cart-items">
                         {{ item.image | img_url: 'medium' | img_tag }}
                         <div class="cart__line-item__content">
-                            <p class="cart__line-item__title h4">{{ item.title }}</p>
-                            <div class="cart__line-item__content__frame">
-                                <input id="ramme" type="checkbox">
-                                <label for="ramme">Tilkøb ramme</label>
-                            </div>
+                            <p class="cart__line-item__title h4">{{ item.title }}</p> {% if item.quantity > 1 %}<span class="cart__line-item__title--count">x {{ item.quantity }}</span>{% endif %}
                         </div>
 
                         <div class="cart__line-item__quantity">
@@ -57,7 +53,7 @@
 
             <div class="cart__total__footer">
                 <input id="terms" type="checkbox">
-                <label for="terms">Jeg accepterer handelsbetingelserne</label>
+                <label for="terms">Acceptér handelsbetingelser</label>
                 <input class="cart__total__footer__qta" type="number" name="updates[]" id="updates_{{ item.key }}" value="{{ item.quantity }}" min="0">
                 <button class="btn" type="submit" name="checkout">Gå til checkout</button>
             </div>

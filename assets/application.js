@@ -1,3 +1,66 @@
+//Currency Formatting
+function formatMoney(cents, format) {
+    if (typeof cents === 'string') {
+      cents = cents.replace('.', '');
+    }
+  
+    var placeholderRegex = /\{\{\s*(\w+)\s*\}\}/,
+        formatString = format || '${{amount}}';
+  
+    function defaultTo(value, defaultValue) {
+      return value == null || value !== value ? defaultValue : value;
+    }
+  
+    function formatWithDelimiters(number, precision, thousands, decimal) {
+      precision = defaultTo(precision, 2);
+      thousands = defaultTo(thousands, ',');
+      decimal = defaultTo(decimal, '.');
+  
+      if (isNaN(number) || number == null) {
+        return 0;
+      }
+  
+      number = (number / 100.0).toFixed(precision);
+  
+      var parts = number.split('.'),
+          dollarsAmount = parts[0].replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1' + thousands),
+          centsAmount = parts[1] ? decimal + parts[1] : '';
+  
+      return dollarsAmount + centsAmount;
+    }
+  
+    var value = '';
+  
+    switch (formatString.match(placeholderRegex)[1]) {
+      case 'amount':
+        value = formatWithDelimiters(cents, 2);
+        break;
+      case 'amount_no_decimals':
+        value = formatWithDelimiters(cents, 0);
+        break;
+      case 'amount_with_space_separator':
+        value = formatWithDelimiters(cents, 2, ' ', '.');
+        break;
+      case 'amount_no_decimals_with_comma_separator':
+        value = formatWithDelimiters(cents, 0, ',', '.');
+        break;
+      case 'amount_no_decimals_with_space_separator':
+        value = formatWithDelimiters(cents, 0, ' ');
+        break;
+      case 'amount_with_comma_separator':
+        value = formatWithDelimiters(cents, 2, '.', ',');
+        break;
+    }
+  
+    if (formatString.indexOf('with_comma_separator') !== -1) {
+      return formatString.replace(placeholderRegex, value).replace(',00', '');
+    } else {
+      return formatString.replace(placeholderRegex, value).replace('.00', '');
+    }
+  }
+
+
+
 //-------------- Frontpage animations --------------//
 
 // Frontpage featured collection scroll animations
@@ -354,6 +417,17 @@ $(document).ready(function () {
         searchWrapper.toggleClass('active')
     })
 
+    function closeSearch(e) {
+        if (e.keyCode == 27) {
+            searchWrapper.removeClass('active')
+        } else if (!searchIcon.is(e.target) && !searchWrapper.is(e.target) && !searchInput.is(e.target)) {
+            searchWrapper.removeClass('active')
+        }
+    }
+
+    $(document).on('keydown', closeSearch)
+    $(document).on('click', closeSearch)
+
 
 
     //-------------- Upload image --------------//
@@ -434,6 +508,127 @@ $(document).ready(function () {
             }
         ]
     })
+
+
+    //-------------- Product images --------------//
+
+    // Product image zoom
+    var products = document.querySelectorAll('.featured-image__wrapper');
+    var ww = $(window).width();
+
+    products.forEach(function(product){
+        var href = product.querySelector('img').getAttribute('data-image');
+        
+        if (ww < 900) {
+            $(product).trigger('zoom.destroy');
+        } else {
+            $(product).zoom({url: href})
+        }
+    })
+
+    // Change featured image to the clicked thumnbail
+    $('.product__images__thumbnail').on('click', function() {
+        let newImg = $(this).attr('src')
+        let dataImg = $(this).attr('data-image')
+
+        $('.product__images__featured').attr('src', newImg)
+        $('.zoomImg').attr('src', dataImg)
+        $('.zoomImg').css('width', '200%')
+        $('.zoomImg').css('height', '200%')
+    })
+
+
+
+    //-------------- Product quantity change --------------//
+    const $btn = $('.js-prod-qty-picker .quantity-btn')
+    let value = parseInt($('.js-prod-qty-picker .quantity-btn.value').text())
+    let qty = parseInt($('#quantity').val())
+    let qtyMax = parseInt($('#quantity').attr('max'))
+    let $productPrice = $('.js-product-price')
+    const $variantSelect = $('.js-variant-select')
+    const $buyFrame = $('#buy-frame')
+    const buyFrameValue = $buyFrame.val()
+
+    if ( qty == qtyMax ) {
+        $('.quantity-btn.plus').prop('disabled', true)
+    }
+
+    function changeQty() {
+        if ( qty > 0 ) {
+            $('.quantity-btn.minus').prop('disabled', false)
+        }
+
+        if ( $(this).hasClass('minus') ) {
+            $('.js-prod-qty-picker .quantity-btn.value').text(value -= 1)
+            $('#quantity').val(qty -= 1)
+
+            if ( qty === 1 ) {
+                $('.quantity-btn.minus').prop('disabled', true)
+            }
+
+        } else if ( $(this).hasClass('plus') ) {
+            if ( qty == qtyMax ) {
+                $('.quantity-btn.plus').prop('disabled', true)
+            }
+            
+            $('.js-prod-qty-picker .quantity-btn.value').text(value += 1)
+            $('#quantity').val(qty += 1)
+        }
+    }
+
+    $btn.on('click', changeQty)
+
+    $variantSelect.on('change', function() {
+        $productPrice.text($(this).find(':selected').attr('data-price'))
+    })
+
+
+    //Ajax the add to cart
+    function addToCartAjax(e) {
+        e.preventDefault();
+
+        const
+            $addToCartBtn = $('#add-to-cart-btn'),
+            btnText = $addToCartBtn.text();
+        
+        $addToCartBtn.text('Tilføjer...');
+        $addToCartBtn.prop('disabled', true);
+        
+        $.ajax({
+            type: 'POST',
+            url: '/cart/add',
+            dataType: 'json',
+            data: $(this).serialize(),
+            success: function(){                
+                $.ajax({
+                    type: 'GET',
+                    url: '/cart',
+                    context: document.body,
+                    success: function(context) {
+                        const
+                            $cartCount = $(context).find('.cart__count'),
+                            cartCountData = $cartCount.attr('data-cart-count'),
+                            $headerCartCount = $('.js-cart-count');
+
+                        $headerCartCount.text(cartCountData);
+                        $addToCartBtn.text('Tilføjet!');
+                        setTimeout(function() {
+                            $addToCartBtn.prop('disabled', false);
+                            $addToCartBtn.text(btnText);
+                        }, 1000);
+                    }
+                });
+            },
+            error: function() {
+                alert('Varen er udsolgt');
+                $addToCartBtn.text('Udsolgt');
+            }
+        });
+    }
+
+    $(document).on('submit', '#add-to-cart-form', addToCartAjax);
+
+    
 
 
 
