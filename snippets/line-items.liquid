@@ -1,0 +1,27 @@
+{% if cart.item_count > 0 %}
+    <div class="cart__info__line-items js-cart-items">
+        {% for item in cart.items %}
+            <div class="cart__line-item">
+                {{ item.image | img_url: 'medium' | img_tag }}
+                <div class="cart__line-item__content">
+                    <p class="cart__line-item__title h4">{{ item.title }}</p> {% if item.quantity > 1 %}<span class="cart__line-item__title--count">x {{ item.quantity }}</span>{% endif %}
+                </div>
+
+                <div class="cart__line-item__quantity">
+                    <div class="cart__line-item__quantity--picker">
+                        <div class="quantity-btn minus">-</div>
+                        <div class="quantity-btn value">1</div>
+                        <div class="quantity-btn plus">+</div>
+                    </div>
+                    <a class="cart__line-item__remove" href="/cart/change?line={{ forloop.index }}&amp;quantity=0">Fjern vare</a>
+                </div>
+
+                <div class="cart__line-item__price">
+                    {{ item.price | money_without_trailing_zeros }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>Din indkøbskurv er tom</p>
+{% endif %}

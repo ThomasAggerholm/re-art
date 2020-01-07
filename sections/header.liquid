@@ -11,7 +11,7 @@
 
         <div class="site-header__icons">
             <div class="site-header__search">{{ 'search.svg' | asset_url | img_tag: 'search', 'search-icon js-search-icon' }}</div>
-            <div class="site-header__cart"><a href="/cart">{{ 'cart.svg' | asset_url | img_tag: 'cart', 'cart-icon' }}</a> <span class="site-header__cart-count js-cart-count" data-cart-count="{{ cart.item_count }}">{{ cart.item_count }}</span></div>
+            <div class="site-header__cart js-cart-icon"><a href="/cart">{{ 'cart.svg' | asset_url | img_tag: 'cart', 'cart-icon' }}</a> <span class="site-header__cart-count js-cart-count" data-cart-count="{{ cart.item_count }}">{{ cart.item_count }}</span></div>
             <div class="site-header__burger js-burger">
                 <div class="site-header__burger__line"></div>
                 <div class="site-header__burger__line"></div>

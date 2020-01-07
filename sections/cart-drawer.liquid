@@ -1,15 +1,12 @@
-<div class="cart-drawer"></div>
-<div class="cart-drawer__inner">
+<div class="cart-drawer js-cart-drawer"></div>
+<div class="cart-drawer__inner js-cart-drawer-inner">
     <div class="cart-drawer__header">
-        <h4>Inkøbskurv ({{ cart.item_count }})</h4>
-        <span class="cart-drawer__close">{% include 'icons' with 'close' %}</span>
+        <h4>Inkøbskurv <span class="cart-drawer__item-count">({{ cart.item_count }})</span></h4>
+        <span class="cart-drawer__close js-cart-drawer-close">{% include 'icons' with 'close' %}</span>
     </div>
 
-    <div class="cart-drawer__items">
-        <div class="cart-drawer__items__line-item js-cart-drawer-item">
-            test
-        </div>    
-    </div>
+    {% comment %} {% include 'line-items' %} {% endcomment %}
+    <div class="line-item-test"></div>
 
     <div class="cart-drawer__footer">
         <div class="cart-drawer__footer__subtotal">
@@ -27,6 +24,10 @@
             {% assign delivery = 3000 %}
             {% assign total = cart.total_price | plus: delivery %}
             <p>{{ total | money_without_trailing_zeros }}</p>
+        </div>
+
+        <div class="cart-drawer__footer__buttons">
+            <a href="/cart" class="btn">Gå til kurven</a>
         </div>
     </div>
 </div>

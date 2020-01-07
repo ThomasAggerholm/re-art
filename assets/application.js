@@ -608,9 +608,15 @@ $(document).ready(function () {
                         const
                             $cartCount = $(context).find('.cart__count'),
                             cartCountData = $cartCount.attr('data-cart-count'),
-                            $headerCartCount = $('.js-cart-count');
+                            $headerCartCount = $('.js-cart-count'),
+                            $cartDrawerItemCount = $('.cart-drawer__item-count'),
+                            $cartItems = $(context).find('.js-cart-items'),
+                            cartItemsHtml = $cartItems.html(),
+                            $cartDrawerItems = $('.js-cart-drawer-items');
 
                         $headerCartCount.text(cartCountData);
+                        $cartDrawerItemCount.text(cartCountData);
+                        $cartDrawerItems.html(cartItemsHtml);
                         $addToCartBtn.text('Tilføjet!');
                         setTimeout(function() {
                             $addToCartBtn.prop('disabled', false);
@@ -619,14 +625,38 @@ $(document).ready(function () {
                     }
                 });
             },
-            error: function() {
-                alert('Varen er udsolgt');
-                $addToCartBtn.text('Udsolgt');
-            }
+            error: onError
         });
     }
 
+    function onError() {
+        alert('Varen er udsolgt');
+        $addToCartBtn.text('Udsolgt');
+    }
+
+    function openCartDrawer(e) {
+        e.preventDefault();
+
+        const
+            $cartDrawer = $('.js-cart-drawer'),
+            $cartDrawerInner = $('.js-cart-drawer-inner')
+
+        $cartDrawer.show(300);
+        $cartDrawerInner.show(300);
+    }
+
+    function closeCartDrawer() {
+        const
+            $cartDrawer = $('.js-cart-drawer'),
+            $cartDrawerInner = $('.js-cart-drawer-inner')
+
+        $cartDrawer.hide(300);
+        $cartDrawerInner.hide(300);
+    }
+
     $(document).on('submit', '#add-to-cart-form', addToCartAjax);
+    $(document).on('click', '.js-cart-icon', openCartDrawer);
+    $(document).on('click', '.js-cart-drawer-close', closeCartDrawer);
 
     
 
