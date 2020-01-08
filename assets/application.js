@@ -5,7 +5,7 @@ function formatMoney(cents, format) {
     }
   
     var placeholderRegex = /\{\{\s*(\w+)\s*\}\}/,
-        formatString = format || '${{amount}}';
+        formatString = format || '{{amount}} kr';
   
     function defaultTo(value, defaultValue) {
       return value == null || value !== value ? defaultValue : value;
@@ -584,6 +584,37 @@ $(document).ready(function () {
 
 
     //Ajax the add to cart
+    const test = () => {
+        let lineItemTest = document.querySelector('.line-item-test')
+
+        const handleCartResponse = (data) => {
+            let
+                cart = data
+                cartItems = cart.items
+
+            cartItems.forEach(item => {    
+                let product = {
+                    title: item.title,
+                    price: item.line_price,
+                    img: item.featured_image.url
+                }
+
+                lineItemTest.insertAdjacentHTML('beforeend', `<li><img src="${product.img}"> ${product.title} - ${formatMoney(product.price)}</li>`)
+            })
+            
+
+        }
+
+        async function getCart() {
+            const
+                response = await $.get('/cart.js'),
+                data = JSON.parse(response)
+            
+            handleCartResponse(data)
+        }
+        getCart()
+    }
+
     function addToCartAjax(e) {
         e.preventDefault();
 
@@ -613,6 +644,8 @@ $(document).ready(function () {
                             $cartItems = $(context).find('.js-cart-items'),
                             cartItemsHtml = $cartItems.html(),
                             $cartDrawerItems = $('.js-cart-drawer-items');
+
+                        test()
 
                         $headerCartCount.text(cartCountData);
                         $cartDrawerItemCount.text(cartCountData);
