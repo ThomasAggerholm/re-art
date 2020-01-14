@@ -582,45 +582,14 @@ $(document).ready(function () {
         $productPrice.text($(this).find(':selected').attr('data-price'))
     })
 
-
     //Ajax the add to cart
-    const test = () => {
-        let lineItemTest = document.querySelector('.line-item-test')
-
-        const handleCartResponse = (data) => {
-            let
-                cart = data
-                cartItems = cart.items
-
-            cartItems.forEach(item => {    
-                let product = {
-                    title: item.title,
-                    price: item.line_price,
-                    img: item.featured_image.url
-                }
-
-                lineItemTest.insertAdjacentHTML('beforeend', `<li><img src="${product.img}"> ${product.title} - ${formatMoney(product.price)}</li>`)
-            })
-            
-
-        }
-
-        async function getCart() {
-            const
-                response = await $.get('/cart.js'),
-                data = JSON.parse(response)
-            
-            handleCartResponse(data)
-        }
-        getCart()
-    }
-
     function addToCartAjax(e) {
         e.preventDefault();
 
         const
             $addToCartBtn = $('#add-to-cart-btn'),
-            btnText = $addToCartBtn.text();
+            btnText = $addToCartBtn.text(),
+            $cartDrawer = $('.js-cart-drawer-line-items')
         
         $addToCartBtn.text('Tilføjer...');
         $addToCartBtn.prop('disabled', true);
@@ -641,19 +610,17 @@ $(document).ready(function () {
                             cartCountData = $cartCount.attr('data-cart-count'),
                             $headerCartCount = $('.js-cart-count'),
                             $cartDrawerItemCount = $('.cart-drawer__item-count'),
-                            $cartItems = $(context).find('.js-cart-items'),
-                            cartItemsHtml = $cartItems.html(),
-                            $cartDrawerItems = $('.js-cart-drawer-items');
+                            cartHtml = $(context).find('.js-cart-drawer-html').html()
 
-                        test()
-
-                        $headerCartCount.text(cartCountData);
-                        $cartDrawerItemCount.text(cartCountData);
-                        $cartDrawerItems.html(cartItemsHtml);
-                        $addToCartBtn.text('Tilføjet!');
+                        console.log(cartHtml)
+                        $headerCartCount.text(cartCountData)
+                        $cartDrawerItemCount.text(cartCountData)
+                        $cartDrawer.html(cartHtml)
+                        
+                        $addToCartBtn.text('Tilføjet!')
                         setTimeout(function() {
-                            $addToCartBtn.prop('disabled', false);
-                            $addToCartBtn.text(btnText);
+                            $addToCartBtn.prop('disabled', false)
+                            $addToCartBtn.text(btnText)
                         }, 1000);
                     }
                 });

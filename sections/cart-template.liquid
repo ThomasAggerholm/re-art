@@ -39,3 +39,26 @@
         </div>
     </div>
 </div>
+
+<div class="cart-drawer__line-items js-cart-drawer-html" style="display:none;">
+    {% if cart.item_count > 0 %}
+        {% for item in cart.items %}
+            <div class="cart-drawer__line-items--item">
+                <div class="cart-drawer__line-items--item__close">
+                    {% include 'icons' with 'close' %}
+                </div>
+
+                <div class="cart-drawer__line-items--item__image">
+                    {{ item.image | img_url: '100x' | img_tag }}
+                </div>
+
+                <div class="cart-drawer__line-items--item__text">
+                    <p class="title">{{ item.title }}</p>
+                    <p class="price">{{ item.price | money_without_trailing_zeros }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p style="display:none;">Din indkøbskurv er tom</p>
+    {% endif %}
+</div>

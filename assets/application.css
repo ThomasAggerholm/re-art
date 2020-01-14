@@ -866,6 +866,10 @@ img {
   z-index: 1100;
 }
 
+.cart-drawer__close:hover {
+  cursor: pointer;
+}
+
 .cart-drawer__inner {
   display: none;
   position: fixed;
@@ -873,9 +877,118 @@ img {
   right: 0;
   width: 400px;
   height: 100vh;
+  padding: 20px;
   background: #ffffff;
   z-index: 1100;
   overflow: auto;
+}
+
+.cart-drawer__header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.cart-drawer__line-items--item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  position: relative;
+  padding: 15px 0;
+  border-bottom: 1px solid #e3e3e3;
+}
+
+.cart-drawer__line-items--item:first-child {
+  border-top: 1px solid #e3e3e3;
+}
+
+.cart-drawer__line-items--item:hover {
+  cursor: pointer;
+}
+
+.cart-drawer__line-items--item:hover .cart-drawer__line-items--item__close {
+  opacity: 1;
+}
+
+.cart-drawer__line-items--item__link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.cart-drawer__line-items--item__close {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  opacity: 0;
+  -webkit-transition: opacity 0.3s ease-out;
+  transition: opacity 0.3s ease-out;
+  z-index: 2;
+}
+
+.cart-drawer__line-items--item__close:hover {
+  cursor: pointer;
+}
+
+.cart-drawer__line-items--item__image {
+  width: 100px;
+}
+
+.cart-drawer__line-items--item__image img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.cart-drawer__line-items--item__text {
+  margin-left: 20px;
+}
+
+.cart-drawer__line-items--item__text .title {
+  margin-bottom: 10px;
+  opacity: 0.7;
+}
+
+.cart-drawer__line-items--item__text .price {
+  font-weight: bold;
+}
+
+.cart-drawer__footer {
+  margin-top: 40px;
+}
+
+.cart-drawer__footer__subtotal, .cart-drawer__footer__delivery, .cart-drawer__footer__total {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 20px 0;
+}
+
+.cart-drawer__footer__buttons {
+  text-align: center;
 }
 
 .site-footer {

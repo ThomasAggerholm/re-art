@@ -5,8 +5,32 @@
         <span class="cart-drawer__close js-cart-drawer-close">{% include 'icons' with 'close' %}</span>
     </div>
 
-    {% comment %} {% include 'line-items' %} {% endcomment %}
-    <ul class="line-item-test"></ul>
+    
+        <div class="cart-drawer__line-items js-cart-drawer-line-items">
+            {% if cart.item_count > 0 %}
+                {% for item in cart.items %}
+                    <div class="cart-drawer__line-items--item">
+                        <a class="cart-drawer__line-items--item__link" href="{{ item.url }}"></a>
+
+                        <div class="cart-drawer__line-items--item__close">
+                            {% include 'icons' with 'close' %}
+                        </div>
+
+                        <div class="cart-drawer__line-items--item__image">
+                            {{ item.image | img_url: '100x' | img_tag }}
+                        </div>
+
+                        <div class="cart-drawer__line-items--item__text">
+                            <p class="title">{{ item.title }}</p>
+                            <p class="price">{{ item.price | money_without_trailing_zeros }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>Din indkøbskurv er tom</p>
+            {% endif %}
+        </div>
+    
 
     <div class="cart-drawer__footer">
         <div class="cart-drawer__footer__subtotal">
@@ -14,7 +38,7 @@
             <p>{{ cart.total_price | money_without_trailing_zeros }}</p>
         </div>
 
-        <div class="cart-drawer__footer__total">
+        <div class="cart-drawer__footer__delivery">
             <p>Fragt</p>
             <p>30 kr</p>
         </div>
