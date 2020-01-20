@@ -2,7 +2,10 @@
 {% assign col = s.col %}
 
 <div id="featured-collection" class="featured-collection__inner container">
-    <h2 class="featured-collection__title">{{ s.title }}</h2>
+    <div class="featured-collection__header">
+        <h2 class="featured-collection__title">{{ s.title }}</h2>
+        <a href="/collections" class="btn">Se alle</a>
+    </div>
 
     <div class="featured-collection__slider js-featured-slider">
         {% for p in collections[col].products limit:10 %}

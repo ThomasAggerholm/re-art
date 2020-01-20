@@ -7,10 +7,12 @@
         <div class="cart__info">
             {% include 'line-items' %}
 
-            <div class="cart__info__payment"></div>
+            <div class="cart__payment">
+                <h3>Vi tager imod</h3>
+            </div>
         </div>
 
-        <div class="cart__total">
+        <div class="cart__total"> 
         <form action="/cart" method="post" novalidate>
             <div class="cart__total__header">
                 <h2>Subtotal</h2>

@@ -1,3 +1,5 @@
+{% assign p = product %}
+
 <div class="product-card {{ class }}">
     <a href="{{ p.url }}"><img class="product-card__image" src="{{ p.featured_image | img_url: 'medium' }}" alt="{{ p.featured_image.alt }}"></a>
     <div class="product-card__info">
