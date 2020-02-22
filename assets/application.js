@@ -526,7 +526,7 @@ $(document).ready(function () {
         }
     })
 
-    // Change featured image to the clicked thumnbail
+    // Change featured image to the clicked thumbnail
     $('.product__images__thumbnail').on('click', function() {
         let newImg = $(this).attr('src')
         let dataImg = $(this).attr('data-image')
@@ -612,7 +612,6 @@ $(document).ready(function () {
                             $cartDrawerItemCount = $('.cart-drawer__item-count'),
                             cartHtml = $(context).find('.js-cart-drawer-html').html()
 
-                        console.log(cartHtml)
                         $headerCartCount.text(cartCountData)
                         $cartDrawerItemCount.text(cartCountData)
                         $cartDrawer.html(cartHtml)
@@ -621,6 +620,7 @@ $(document).ready(function () {
                         setTimeout(function() {
                             $addToCartBtn.prop('disabled', false)
                             $addToCartBtn.text(btnText)
+                            openCartDrawer()
                         }, 1000);
                     }
                 });
@@ -628,21 +628,22 @@ $(document).ready(function () {
             error: onError
         });
     }
-
+ 
     function onError() {
         alert('Varen er udsolgt');
         $addToCartBtn.text('Udsolgt');
     }
 
     function openCartDrawer(e) {
-        e.preventDefault();
+        if ( e )
+            e.preventDefault();
 
         const
             $cartDrawer = $('.js-cart-drawer'),
             $cartDrawerInner = $('.js-cart-drawer-inner')
 
-        $cartDrawer.show(300);
-        $cartDrawerInner.show(300);
+        $cartDrawer.addClass('open')
+        $cartDrawerInner.addClass('open')
     }
 
     function closeCartDrawer() {
@@ -650,8 +651,8 @@ $(document).ready(function () {
             $cartDrawer = $('.js-cart-drawer'),
             $cartDrawerInner = $('.js-cart-drawer-inner')
 
-        $cartDrawer.hide(300);
-        $cartDrawerInner.hide(300);
+        $cartDrawer.removeClass('open')
+        $cartDrawerInner.removeClass('open')
     }
 
     $(document).on('submit', '#add-to-cart-form', addToCartAjax);

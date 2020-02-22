@@ -768,17 +768,20 @@ img {
 
 // Cart drawer
 .cart-drawer {
-    display: none;
     position: fixed;
     top: 0;
     left: 0;
-
     width: 100%;
     height: 100vh;
-
     background: $black;
-    opacity: 0.6;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease-out;
     z-index: 1100;
+    &.open {
+        opacity: 0.6;
+        pointer-events: all;
+    }
 
     &__close {
         &:hover {
@@ -787,19 +790,24 @@ img {
     }
 
     &__inner {
-        display: none;
         position: fixed;
         top: 0;
         right: 0;
-
         width: 400px;
         height: 100vh;
-
+        transform: translateX(400px);
         padding: 20px;
-
         background: $white;
+        box-shadow: 0 0 16px rgba(0, 0, 0, 0);
+        transition: all 0.4s ease-in-out;
+        transition-property: transform, box-shadow;
+
         z-index: 1100;
         overflow: auto;
+        &.open {
+            transform: translateX(0);
+            box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
+        }
     }
 
     &__header {
