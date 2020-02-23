@@ -230,7 +230,7 @@ slideTl.fromTo(slideNavInner, {
     ease: 'power3.out'
 }, '-=0.5')
 .fromTo(menuItems, {
-    opcity: 0,
+    opacity: 0,
     y: 20,
     x: 0
 },
@@ -370,6 +370,27 @@ function posterMatch() {
 posterMatch()
 
 
+
+//-------------- All rooms animations --------------//
+const roomItems = document.querySelectorAll('.js-all-rooms-animate')
+
+function fadeIn() {
+    let delay = 0.2
+
+    roomItems.forEach(item => {
+        let itemTop = item.getBoundingClientRect().top
+
+        if ( itemTop < window.innerHeight ) {
+            item.classList.add('animated')
+            item.style.transitionDelay = `${delay}s`
+            delay += 0.2
+        }
+    })
+}
+
+fadeIn()
+document.addEventListener('scroll', fadeIn)
+window.addEventListener('resize', fadeIn)
 
 //-------------- Document Ready --------------//
 $(document).ready(function () {
@@ -586,10 +607,7 @@ $(document).ready(function () {
     function addToCartAjax(e) {
         e.preventDefault();
 
-        const
-            $addToCartBtn = $('#add-to-cart-btn'),
-            btnText = $addToCartBtn.text(),
-            $cartDrawer = $('.js-cart-drawer-line-items')
+        let $addToCartBtn = $('#add-to-cart-btn')
         
         $addToCartBtn.text('Tilføjer...');
         $addToCartBtn.prop('disabled', true);
@@ -599,33 +617,39 @@ $(document).ready(function () {
             url: '/cart/add',
             dataType: 'json',
             data: $(this).serialize(),
-            success: function(){                
-                $.ajax({
-                    type: 'GET',
-                    url: '/cart',
-                    context: document.body,
-                    success: function(context) {
-                        const
-                            $cartCount = $(context).find('.cart__count'),
-                            cartCountData = $cartCount.attr('data-cart-count'),
-                            $headerCartCount = $('.js-cart-count'),
-                            $cartDrawerItemCount = $('.cart-drawer__item-count'),
-                            cartHtml = $(context).find('.js-cart-drawer-html').html()
-
-                        $headerCartCount.text(cartCountData)
-                        $cartDrawerItemCount.text(cartCountData)
-                        $cartDrawer.html(cartHtml)
-                        
-                        $addToCartBtn.text('Tilføjet!')
-                        setTimeout(function() {
-                            $addToCartBtn.prop('disabled', false)
-                            $addToCartBtn.text(btnText)
-                            openCartDrawer()
-                        }, 1000);
-                    }
-                });
-            },
+            success: onCartUpdated,
             error: onError
+        });
+    }
+
+    function onCartUpdated(){    
+        const $cartDrawer = $('.js-cart-drawer-line-items')
+        let $addToCartBtn = $('#add-to-cart-btn')
+        let btnText = $addToCartBtn.text()
+
+        $.ajax({
+            type: 'GET',
+            url: '/cart',
+            context: document.body,
+            success: function(context) {
+                const
+                    $cartCount = $(context).find('.cart__count'),
+                    cartCountData = $cartCount.attr('data-cart-count'),
+                    $headerCartCount = $('.js-cart-count'),
+                    $cartDrawerItemCount = $('.cart-drawer__item-count'),
+                    cartHtml = $(context).find('.js-cart-drawer-html').html()
+
+                $headerCartCount.text(cartCountData)
+                $cartDrawerItemCount.text(cartCountData)
+                $cartDrawer.html(cartHtml)
+                
+                $addToCartBtn.text('Tilføjet!')
+                setTimeout(function() {
+                    $addToCartBtn.prop('disabled', false)
+                    $addToCartBtn.text('Tilføj til kurv')
+                    openCartDrawer()
+                }, 1000);
+            }
         });
     }
  
@@ -655,9 +679,23 @@ $(document).ready(function () {
         $cartDrawerInner.removeClass('open')
     }
 
+    function removeFromCartDrawer(e) {
+        e.preventDefault()
+        let
+            $removeLink = $(this),
+            removeQuery = $removeLink.attr('href').split('?')[1]
+
+        $.post('/cart/change.js', removeQuery, onCartUpdated, 'json') 
+    }
+
     $(document).on('submit', '#add-to-cart-form', addToCartAjax);
     $(document).on('click', '.js-cart-icon', openCartDrawer);
     $(document).on('click', '.js-cart-drawer-close', closeCartDrawer);
+    $(document).on('keydown', function(e) {
+        if ( e.keyCode == 27 )
+            closeCartDrawer()
+    })
+    $(document).on('click', '.js-line-item-remove', removeFromCartDrawer)
 
     
 

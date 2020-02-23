@@ -1,0 +1,36 @@
+{% assign linklistHandle = section.settings.sidebar_linklist %}
+
+<ul class="collection__sidebar__linklist-wrapper__linklist">
+    {% for link in linklists[linklistHandle].links %}
+        <li class="collection__sidebar__linklist-wrapper__linklist__link">
+            <a class="collection__sidebar__linklist-wrapper__linklist__link__link" href="{{ link.url }}">{{ link.title }}</a>
+                {% if link.links != blank %}
+                    <div class="collection__sidebar__childlinklist-wrapper">
+                        <ul class="collection__sidebar__childlinklist-wrapper__childlinklist">
+                            {% for childlink in link.links %}
+                                <li class="collection__sidebar__childlinklist-wrapper__childlinklist__childlink">
+                                    <a class="collection__sidebar__childlinklist-wrapper__childlinklist__childlink__link" href="{{ childlink.url }}">{{ childlink.title }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+
+{% schema %}
+    {
+        "name": "Collection sidebar",
+        "settings": [{
+            "type": "text",
+            "id": "sidebar_title",
+            "label": "Sidebar overskrift"
+        },
+        {
+            "type": "link_list",
+            "id": "sidebar_linklist",
+            "label": "Sidebar linkliste"
+        }]
+    }
+{% endschema %}

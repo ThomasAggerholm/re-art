@@ -13,7 +13,7 @@
                         <a class="cart-drawer__line-items--item__link" href="{{ item.url }}"></a>
 
                         <div class="cart-drawer__line-items--item__close">
-                            {% include 'icons' with 'close' %}
+                            <a class="cart__line-item__remove js-line-item-remove" href="/cart/change?line={{ forloop.index }}&amp;quantity=0">{% include 'icons' with 'close' %}</a>
                         </div>
 
                         <div class="cart-drawer__line-items--item__image">

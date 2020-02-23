@@ -1,21 +1,26 @@
-<div class="container" id="collection">
-
-    <div class="collection-main__header talign-center">
-        <h1 class="headline-small">Plakater</h1>
-        <p class="collection-main__description">
-            {{ collection.description }}
-        </p>
+<div class="collection">
+    <div class="collection__header container">
+        <h1 class="collection__header__title">{{ collection.title }}</h1>
+        <div class="collection__header__description">{{ collection.description }}</div>
     </div>
 
-    <button id="poster-match__btn" class="btn">Poster match</button>
-    <div class="poster-match">
-        {% include 'poster-match' %}
+    <div class="collection__inner container">
+        <div class="collection__sidebar">
+            <h3 class="collection__sidebar__title">Kollektioner</h3>
+
+            <div class="collection__sidebar__linklist-wrapper">
+                {% section 'collection-sidebar' %}
+            </div>
+        </div>
+
+        <div class="collection__main">
+            <div class="collection__main__row">
+                {% for product in collection.products %}
+                    <div class="collection__main__row__item">
+                        {% include 'product-card' %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
     </div>
-
-    {%- comment -%}
-        {% include 'collection-sidebar' %}
-    {%- endcomment -%}
-
-    {% include 'collection-main' %}
-
 </div>

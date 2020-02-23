@@ -1,0 +1,57 @@
+<div class="all-rooms">
+    <div class="all-rooms__inner container">
+        <div class="all-rooms__header">
+            <h2 class="all-rooms__title js-all-rooms-animate">{{ section.settings.title }}</h2>
+
+            <div class="all-rooms__header__description js-all-rooms-animate">
+                {{ section.settings.desc }}
+            </div>
+        </div>
+
+        <div class="all-rooms__row">
+            {% for block in section.blocks %}
+                {% assign collHandle = block.settings.coll %}
+                <div class="all-rooms__grid-item js-all-rooms-animate">
+                    <div class="all-rooms__grid-item__title">
+                        {{- collections[collHandle].title -}}
+                    </div>
+
+                    <div class="all-rooms__grid-item__btn">
+                        <a href="{{ collections[collHandle].url }}" class="btn btn--white">SHOP NU</a>
+                    </div>
+
+                    <div class="overlay"></div>
+
+                    <div class="all-rooms__grid-item__image"> 
+                        {{ collections[collHandle].image | img_url: 'large' | img_tag }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+ 
+{% schema %}
+    {
+        "name": "All rooms",
+        "settings": [{
+            "type": "text",
+            "id": "title",
+            "label": "Overskrift"
+        },
+        {
+            "type": "richtext",
+            "id": "desc",
+            "label": "Alle rum beskrivelse"
+        }],
+        "blocks": [{
+            "type": "room",
+            "name": "Room",
+            "settings": [{
+                "type": "collection",
+                "id": "coll",
+                "label": "Vælg kollektion"
+            }]
+        }]
+    }
+{% endschema %}
