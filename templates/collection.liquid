@@ -1,7 +1,15 @@
+{%- assign desc = collection.description | split: '%%%' -%}
+
 <div class="collection">
     <div class="collection__header container">
         <h1 class="collection__header__title">{{ collection.title }}</h1>
-        <div class="collection__header__description">{{ collection.description }}</div>
+        <div class="collection__header__description top">
+            {% if desc.size > 1 %}
+                {{ desc[0] }}
+            {% else %}
+                {{ collection.description }}
+            {% endif %}
+        </div>
     </div>
 
     <div class="collection__inner container">
@@ -16,11 +24,21 @@
         <div class="collection__main">
             <div class="collection__main__row">
                 {% for product in collection.products %}
-                    <div class="collection__main__row__item">
-                        {% include 'product-card' %}
-                    </div>
+                    {% if product.available %}
+                        <div class="collection__main__row__item">
+                            {% include 'product-card' %}
+                        </div>
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>
     </div>
+
+    {% if desc.size > 1 %}
+        <div class="container">
+            <div class="collection__header__description bottom">
+                {{ desc[1] }}
+            </div>
+        </div>
+    {% endif %}
 </div>

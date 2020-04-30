@@ -476,17 +476,17 @@ $(document).ready(function () {
 
 
     //-------------- Smooth scroll to ID --------------//
-    $('a[href*="#"]').on('click', function(e) {
-        e.preventDefault()
+    // $('a[href*="#"]').on('click', function(e) {
+    //     e.preventDefault()
       
-        $('html, body').animate(
-          {
-            scrollTop: $($(this).attr('href')).offset().top - 80 + 'px',
-          },
-          500,
-          'linear'
-        )
-      })
+    //     $('html, body').animate(
+    //       {
+    //         scrollTop: $($(this).attr('href')).offset().top - 80 + 'px',
+    //       },
+    //       500,
+    //       'linear'
+    //     )
+    //   })
 
     //-------------- Hero slider --------------//
     function heroSliderInit() {
@@ -650,7 +650,22 @@ $(document).ready(function () {
                     openCartDrawer()
                 }, 1000);
             }
-        });
+        })
+
+        var cartTotal = $('.cart-total')
+        var cartSubtotal = $('.cart-subtotal')
+
+        setTimeout(function(){
+            $.get('/cart.js', function(data) {
+                var data = JSON.parse(data)
+                console.log('Data: ', data)
+                var subtotal = data.items_subtotal_price
+                var totalCartPrice = data.total_price + 3000
+    
+                cartTotal.html(formatMoney(totalCartPrice))
+                cartSubtotal.html(formatMoney(subtotal))
+            })
+        }, 800)
     }
  
     function onError() {
@@ -686,6 +701,22 @@ $(document).ready(function () {
             removeQuery = $removeLink.attr('href').split('?')[1]
 
         $.post('/cart/change.js', removeQuery, onCartUpdated, 'json') 
+
+        const $cartDrawer = $('.js-cart-drawer-line-items')
+        var cartTotal = $('.cart-total')
+        var cartSubtotal = $('.cart-subtotal')
+
+        setTimeout(function(){
+            $.get('/cart.js', function(data) {
+                var data = JSON.parse(data)
+                console.log('Data: ', data)
+                var totalCartPrice = data.total_price + 3000
+                var subtotal = data.items_subtotal_price
+    
+                cartTotal.html(formatMoney(totalCartPrice))
+                cartSubtotal.html(formatMoney(subtotal))
+            })
+        }, 800)
     }
 
     $(document).on('submit', '#add-to-cart-form', addToCartAjax);
@@ -698,7 +729,24 @@ $(document).ready(function () {
     $(document).on('click', '.js-line-item-remove', removeFromCartDrawer)
 
     
+//-------------- Collection filter --------------//
+var filterContainers = $('.collection__sidebar__grandchildlinklist-wrapper')
+var filterToggles = $('.collection__sidebar__childlinklist-wrapper__childlinklist__childlink__link')
+var filterLinks = $('.collection__sidebar__grandchildlinklist-wrapper__grandchildlinklist__link')
 
+filterLinks.each(function() {
+    if ( $(this).hasClass('active') ) {
+        $(this).closest(filterContainers).show()
+        $(this).closest(filterContainers).siblings('.list-wrapper').find('.icon').addClass('active')
+    }
+})
+
+filterToggles.on('click', function(e) {
+    e.preventDefault()
+
+    $(this).parent().siblings(filterContainers).slideToggle(300)
+    $(this).siblings('.icon').toggleClass('active')
+})
 
 
 

@@ -1,20 +1,29 @@
 {% paginate search.results by 10 %}
 
-    {% if search.performed %}
-        {% for item in search.results %}
-            {% if item.featured_image %}
-                <a href="{{ item.url | within: collection }}" title="{{ item.title | escape }}">
-                    {{ item.featured_image.src | img_url: 'medium' | img_tag: item.featured_image.alt }}
-                </a>
-            {% endif %}
-            <h5>{{ item.title | link_to: item.url }}</h5>
-            <p>{{ item.content | strip_html | truncatewords: 50 }}</p>
-        {% else %}
-            no results
-        {% endfor %}
-    {% endif %}
+<div class="search-result">
+    <div class="container">
+        <div class="search-terms">Resultater for: "{{ search.terms }}"</div>
 
-    {% if paginate.pages > 1 %}
-        {{ paginate | default_pagination }}
-    {% endif %}
+        {% if search.performed %}
+            <div class="grid">
+                {% for item in search.results %}
+                    <div class="grid-item">
+                        <a href="{{ item.url }}">
+                            {{ item | image_url | img_tag }}
+                            <h5>{{ item.title }}</h5>
+                            <p itemprop="price">{{ item.price | money_without_trailing_zeros }}</p>
+                        </a>
+                    </div>
+                {% else %}
+                    no results
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+{% if paginate.pages > 1 %}
+    {{ paginate | default_pagination }}
+{% endif %}
+
 {% endpaginate %}

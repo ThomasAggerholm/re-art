@@ -1,7 +1,7 @@
 <div class="cart-drawer js-cart-drawer"></div>
 <div class="cart-drawer__inner js-cart-drawer-inner">
     <div class="cart-drawer__header">
-        <h4>Inkøbskurv <span class="cart-drawer__item-count">({{ cart.item_count }})</span></h4>
+        <h4>Indkøbskurv <span class="cart-drawer__item-count">({{ cart.item_count }})</span></h4>
         <span class="cart-drawer__close js-cart-drawer-close">{% include 'icons' with 'close' %}</span>
     </div>
 
@@ -35,7 +35,7 @@
     <div class="cart-drawer__footer">
         <div class="cart-drawer__footer__subtotal">
             <p>Subtotal</p>
-            <p>{{ cart.total_price | money_without_trailing_zeros }}</p>
+            <p class="cart-subtotal">{{ cart.total_price | money_without_trailing_zeros }}</p>
         </div>
 
         <div class="cart-drawer__footer__delivery">
@@ -47,7 +47,7 @@
             <p>Total</p>
             {% assign delivery = 3000 %}
             {% assign total = cart.total_price | plus: delivery %}
-            <p>{{ total | money_without_trailing_zeros }}</p>
+            <p class="cart-total">{{ total | money_without_trailing_zeros }}</p>
         </div>
 
         <div class="cart-drawer__footer__buttons">

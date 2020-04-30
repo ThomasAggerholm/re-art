@@ -1,0 +1,35 @@
+<div class="contact-page">
+    <div class="container">
+        <h1 class="contact-page__title">{{ page.title }}</h1>
+
+        {% form 'contact' %}
+            {% if form.posted_successfully? %} Tak for din besked. Vi vender tilbage hurtigst muligt. {% endif %}
+
+            {{ form.errors | default_errors }}
+
+            <div class="contact-page__input-wrapper">
+                <div class="contact-page__input">
+                    <label for="ContactFormName">Navn</label>
+                    <input type="text" id="ContactFormName" name="contact[name]">
+                </div>
+                
+                <div class="contact-page__input">
+                    <label for="ContactFormEmail">Email</label>
+                    <input type="email" id="ContactFormEmail" name="contact[email]">
+                </div>
+
+                <div class="contact-page__input">
+                    <label for="ContactFormPhone">Telefon</label>
+                    <input type="tel" id="ContactFormPhone" name="contact[phone]">
+                </div>
+                
+                <div class="contact-page__input">
+                    <label for="ContactFormMessage">Besked</label>
+                    <textarea rows="10" id="ContactFormMessage" name="contact[body]"></textarea>
+                </div>
+                
+                <input class="btn btn--black" type="Send" value="send">
+            </div>
+        {% endform %}
+    </div>
+</div>

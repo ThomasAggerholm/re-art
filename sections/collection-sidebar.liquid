@@ -3,13 +3,30 @@
 <ul class="collection__sidebar__linklist-wrapper__linklist">
     {% for link in linklists[linklistHandle].links %}
         <li class="collection__sidebar__linklist-wrapper__linklist__link">
-            <a class="collection__sidebar__linklist-wrapper__linklist__link__link" href="{{ link.url }}">{{ link.title }}</a>
+            <div class="list-wrapper">
+                <a class="collection__sidebar__linklist-wrapper__linklist__link__link{% if link.active %} active{% endif %}" href="{{ link.url }}">{{ link.title }}</a>
+                {% include 'icons' with 'chevron-down' %}
+            </div>
                 {% if link.links != blank %}
                     <div class="collection__sidebar__childlinklist-wrapper">
                         <ul class="collection__sidebar__childlinklist-wrapper__childlinklist">
                             {% for childlink in link.links %}
                                 <li class="collection__sidebar__childlinklist-wrapper__childlinklist__childlink">
-                                    <a class="collection__sidebar__childlinklist-wrapper__childlinklist__childlink__link" href="{{ childlink.url }}">{{ childlink.title }}</a>
+                                    <div class="list-wrapper">
+                                        <a class="collection__sidebar__childlinklist-wrapper__childlinklist__childlink__link{% if childlink.active %} active{% endif %}" href="{{ childlink.url }}">{{ childlink.title }}</a>
+                                        {% include 'icons' with 'chevron-down' %}
+                                    </div>
+                                    {% if childlink.links != blank %}
+                                        <div class="collection__sidebar__grandchildlinklist-wrapper">
+                                            <ul class="collection__sidebar__grandchildlinklist-wrapper__grandchildlinklist">
+                                                {% for grandchildlink in childlink.links %}
+                                                    <li class="collection__sidebar__grandchildlinklist-wrapper__grandchildlinklist__item">
+                                                        <a href="{{ grandchildlink.url }}" class="collection__sidebar__grandchildlinklist-wrapper__grandchildlinklist__link{% if grandchildlink.active %} active{% endif %}">{{ grandchildlink.title }}</a>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    {% endif %}
                                 </li>
                             {% endfor %}
                         </ul>
