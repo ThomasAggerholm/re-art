@@ -755,12 +755,10 @@ img {
     &__inner {
         width: auto;
         height: 100%;
-
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
         align-items: flex-start;
         flex-flow: row wrap;
-
         margin: -10px;
     }
 
@@ -782,6 +780,15 @@ img {
             font-family: 'Butler', serif;
             font-size: 26px;
         }
+    }
+
+    &__grandchild {
+        ul {
+            display: flex;
+            flex-flow: column wrap;
+            max-height: 300px; 
+        }
+        
     }
 
     .grandchild-link__menu__item {
@@ -1410,7 +1417,7 @@ img {
         left: 0;
         width: 100%;
         height: 100%;
-        background: linear-gradient(90deg, rgba(255,255,255, 1), rgba(255, 255, 255, 0));
+        background: linear-gradient(90deg, rgba(255,255,255, .5), rgba(255, 255, 255, 0));
         z-index: 0;
     }
 
@@ -2050,9 +2057,11 @@ img {
 
 // Collection
 .collection {
+    padding-bottom: 50px;
     &__header {
         margin-top: 40px;
         margin-bottom: 40px;
+        text-align: center;
 
         &__title {
             margin-bottom: 10px;
@@ -2060,10 +2069,25 @@ img {
         }
 
         &__description {
-            max-width: 900px;
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 16px;
+
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6,
+            p {
+                font-size: 16px;
+                font-weight: 300;
+                font-family: 'Montserrat', sans-serif;
+            }
 
             span {
                 font-weight: 300;
+                font-size: 16px;
             }
 
             &.bottom {
@@ -2112,7 +2136,8 @@ img {
             &__linklist {
                 &__link {
                     &__link {
-                        font-weight: 500;
+                        font-family: $font-family-heading;
+                        font-size: 22px;
                     }
                 }
             }
@@ -2129,7 +2154,8 @@ img {
                     }
 
                     &__link {
-                        font-weight: 500;
+                        font-family: $font-family-heading;
+                        font-size: 20px;
                     }
                 }
             }
@@ -3115,5 +3141,25 @@ img {
                 outline: none;
             }
         }
+    }
+}
+
+// Inspiration page
+.inspiration-page {
+    padding: 50px 0;
+
+    &__header {
+        margin-bottom: 30px;
+    }
+
+    &__grid {
+        display: flex;
+        flex-flow: row wrap;
+        margin: -10px;
+    }
+
+    &__grid-item {
+        width: calc(25% - 20px);
+        margin: 10px;
     }
 }

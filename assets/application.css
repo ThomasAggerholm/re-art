@@ -837,9 +837,9 @@ img {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
@@ -871,6 +871,17 @@ img {
   margin-bottom: 10px;
   font-family: 'Butler', serif;
   font-size: 26px;
+}
+
+.megamenu__grandchild ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column wrap;
+          flex-flow: column wrap;
+  max-height: 300px;
 }
 
 .megamenu .grandchild-link__menu__item {
@@ -1592,8 +1603,8 @@ img {
   left: 0;
   width: 100%;
   height: 100%;
-  background: -webkit-gradient(linear, left top, right top, from(white), to(rgba(255, 255, 255, 0)));
-  background: linear-gradient(90deg, white, rgba(255, 255, 255, 0));
+  background: -webkit-gradient(linear, left top, right top, from(rgba(255, 255, 255, 0.5)), to(rgba(255, 255, 255, 0)));
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
   z-index: 0;
 }
 
@@ -2264,9 +2275,14 @@ img {
      object-fit: cover;
 }
 
+.collection {
+  padding-bottom: 50px;
+}
+
 .collection__header {
   margin-top: 40px;
   margin-bottom: 40px;
+  text-align: center;
 }
 
 .collection__header__title {
@@ -2275,11 +2291,26 @@ img {
 }
 
 .collection__header__description {
-  max-width: 900px;
+  max-width: 700px;
+  margin: 0 auto;
+  font-size: 16px;
+}
+
+.collection__header__description h1,
+.collection__header__description h2,
+.collection__header__description h3,
+.collection__header__description h4,
+.collection__header__description h5,
+.collection__header__description h6,
+.collection__header__description p {
+  font-size: 16px;
+  font-weight: 300;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .collection__header__description span {
   font-weight: 300;
+  font-size: 16px;
 }
 
 .collection__header__description.bottom {
@@ -2344,7 +2375,8 @@ img {
 }
 
 .collection__sidebar__linklist-wrapper__linklist__link__link {
-  font-weight: 500;
+  font-family: "Butler", serif;
+  font-size: 22px;
 }
 
 .collection__sidebar__childlinklist-wrapper {
@@ -2357,7 +2389,8 @@ img {
 }
 
 .collection__sidebar__childlinklist-wrapper__childlinklist__childlink__link {
-  font-weight: 500;
+  font-family: "Butler", serif;
+  font-size: 20px;
 }
 
 .collection__sidebar__grandchildlinklist-wrapper {
@@ -3492,5 +3525,29 @@ img {
 
 .contact-page__input input:focus, .contact-page__input input:active {
   outline: none;
+}
+
+.inspiration-page {
+  padding: 50px 0;
+}
+
+.inspiration-page__header {
+  margin-bottom: 30px;
+}
+
+.inspiration-page__grid {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  margin: -10px;
+}
+
+.inspiration-page__grid-item {
+  width: calc(25% - 20px);
+  margin: 10px;
 }
 /*# sourceMappingURL=application.css.map */
