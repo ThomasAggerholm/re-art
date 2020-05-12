@@ -738,6 +738,7 @@ filterLinks.each(function() {
     if ( $(this).hasClass('active') ) {
         $(this).closest(filterContainers).show()
         $(this).closest(filterContainers).siblings('.list-wrapper').find('.icon').addClass('active')
+        $(this).closest('.collection__sidebar__grandchildlinklist-wrapper').siblings('.list-wrapper').find(filterToggles).addClass('active')
     }
 })
 
@@ -748,6 +749,12 @@ filterToggles.on('click', function(e) {
     $(this).siblings('.icon').toggleClass('active')
 })
 
+var mobileFilterBtn = $('.js-mobile-filter-toggle')
+var sidebar = $('.js-sidebar')
+
+mobileFilterBtn.on('click', function() {
+    sidebar.toggle()
+})
 
 
     

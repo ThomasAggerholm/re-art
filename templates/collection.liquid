@@ -1,4 +1,5 @@
 {%- assign desc = collection.description | split: '%%%' -%}
+{% paginate collection.products by 20 %}
 
 <div class="collection">
     <div class="collection__header container">
@@ -12,10 +13,12 @@
         </div>
     </div>
 
-    <div class="collection__inner container">
-        <div class="collection__sidebar">
-            <h3 class="collection__sidebar__title">Kollektioner</h3>
+    <div class="collection__toggle-sidebar-mobile container js-mobile-filter-toggle">
+        Filter
+    </div>
 
+    <div class="collection__inner container">
+        <div class="collection__sidebar js-sidebar">
             <div class="collection__sidebar__linklist-wrapper">
                 {% section 'collection-sidebar' %}
             </div>
@@ -31,6 +34,11 @@
                     {% endif %}
                 {% endfor %}
             </div>
+            {% if paginate.pages > 1 %}
+                <div class="collection__pagination">
+                    {{ paginate | default_pagination: next: 'Næste', previous: 'Forrige' }}
+                </div>
+            {% endif %}
         </div>
     </div>
 
@@ -42,3 +50,5 @@
         </div>
     {% endif %}
 </div>
+
+{% endpaginate %}

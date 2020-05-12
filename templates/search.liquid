@@ -2,11 +2,11 @@
 
 <div class="search-result">
     <div class="container">
-        <div class="search-terms">Resultater for: "{{ search.terms }}"</div>
-
         {% if search.performed %}
+        <div class="search-terms">Resultater for: "{{ search.terms }}"</div>
             <div class="grid">
                 {% for item in search.results %}
+                {% if item.available %}
                     <div class="grid-item">
                         <a href="{{ item.url }}">
                             {{ item | image_url | img_tag }}
@@ -14,8 +14,9 @@
                             <p itemprop="price">{{ item.price | money_without_trailing_zeros }}</p>
                         </a>
                     </div>
+                {% endif %}
                 {% else %}
-                    no results
+                    Ingen resultater for: "{{ search.terms }}"
                 {% endfor %}
             </div>
         {% endif %}

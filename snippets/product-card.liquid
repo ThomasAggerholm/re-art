@@ -1,7 +1,7 @@
 {% assign p = product %}
 
 <div class="product-card {{ class }}">
-    <a href="{{ p.url }}">
+    <a href="{{ p.url | within: collection }}">
         <div class="product-card__image-wrapper">
             <img class="product-card__image one" src="{{ p.featured_image | img_url: 'medium' }}" alt="{{ p.featured_image.alt }}">
             {% if p.images.size > 1 %}
