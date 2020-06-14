@@ -1,0 +1,68 @@
+{% assign p = page %}
+
+<div class="page-indramning">
+    <div class="page-indramning__inner container">
+        <div class="page-indramning__header">
+            <h1 class="page-indramning__header--title">{{ p.title }}</h1>
+            <div class="page-indramning__header--subtitle">{{ p.content }}</div>
+        </div>
+
+        <div class="page-indramning__main">
+            {% for b in section.blocks %}
+                {% assign bs = b.settings %}
+
+                <div class="page-indramning__row{% if bs.reverse %} reverse{% endif %}">
+                    <div class="page-indramning__col">
+                        <h3 class="page-indramning__col--title">{{ bs.col_title }}</h3>
+                        <div class="page-indramning__col--content">{{ bs.col_content }}</div>
+                    </div>
+
+                    <div class="page-indramning__col">
+                        <div class="page-indramning__col__image-wrapper">
+                            <img src="{{ bs.image | img_url: '1200x' }}" alt="{{ bs.col_title }}">
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% schema %}
+    {
+        "name": "Indramning",
+        "blocks": [
+            {
+                "type": "row",
+                "name": "Billede og tekst",
+                "settings": [
+                    {
+                        "type": "header",
+                        "content": "Række med billede og tekst"
+                    },
+                    {
+                        "type": "checkbox",
+                        "id": "reverse",
+                        "label": "Billede til venstre og tekst til højre",
+                        "default": false
+                    },
+                    {
+                        "type": "text",
+                        "id": "col_title",
+                        "label": "Overskrift"
+                    },
+                    {
+                        "type": "richtext",
+                        "id": "col_content",
+                        "label": "Tekst"
+                    },
+                    {
+                        "type": "image_picker",
+                        "id": "image",
+                        "label": "Billede"
+                    }
+                ]
+            }
+        ]
+    }
+{% endschema %}

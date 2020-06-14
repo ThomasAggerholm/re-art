@@ -1,7 +1,24 @@
-<div class="page">
-    <div class="container">
-        <h1 class="page__title">{{ page.title }}</h1>
+{% assign desc = page.content | split: '%%%' %}
 
-        <div class="page__content">{{ page.content }}</div>
+<div class="page">
+    <div class="container container--page">
+        <h1 class="page__title h3">{{ page.title }}</h1>
+
+        <div class="page__content">
+            {% if desc.size > 1 %}
+                {{ desc[0] }}
+                <a href="#" class="page__content__toggle" data-page-content-toggle>
+                    Læs mere
+                    {% include 'icons' with 'chevron-down' %}
+                </a>
+                <div class="page__content--extra" data-page-content-extra>
+                    {{ desc[1] }}
+                </div>
+
+                {{ desc[2] }}
+            {% else %}
+                {{ page.content }}
+            {% endif %}
+        </div>
     </div>
 </div>

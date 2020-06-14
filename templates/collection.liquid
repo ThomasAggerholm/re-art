@@ -27,11 +27,9 @@
         <div class="collection__main">
             <div class="collection__main__row">
                 {% for product in collection.products %}
-                    {% if product.available %}
-                        <div class="collection__main__row__item">
-                            {% include 'product-card' %}
-                        </div>
-                    {% endif %}
+                    <div class="collection__main__row__item">
+                        {% include 'product-card' %}
+                    </div>
                 {% endfor %}
             </div>
             {% if paginate.pages > 1 %}

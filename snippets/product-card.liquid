@@ -1,6 +1,18 @@
 {% assign p = product %}
 
 <div class="product-card {{ class }}">
+    {% if p.compare_at_price > p.selected_or_first_available_variant.price %}
+        <div class="product-card__label discount">
+            UDSALG
+        </div>
+    {% endif %}
+
+    {% if product.available == false %}
+        <div class="product-card__label sold-out">
+            UDSOLGT
+        </div>
+    {% endif %}
+
     <a href="{{ p.url | within: collection }}">
         <div class="product-card__image-wrapper">
             <img class="product-card__image one" src="{{ p.featured_image | img_url: 'medium' }}" alt="{{ p.featured_image.alt }}">
@@ -19,6 +31,11 @@
         <h3 class="product-card__title">
             <a href="{{ p.url }}">{{ p.title | truncate: 20, '...' }}</a>
         </h3>
-        <span class="product-card__price">{{ p.price | money_without_trailing_zeros }}</span>
+        <div class="product-card__prices">
+            <span class="product-card__price">{{ p.selected_or_first_available_variant.price | money_without_trailing_zeros }}</span>
+            {% if p.compare_at_price > p.selected_or_first_available_variant.price %}
+                <span class="product-card__compare-at-price">{{ p.compare_at_price | money_without_trailing_zeros }}</span>
+            {% endif %}
+        </div>
     </div>
 </div>

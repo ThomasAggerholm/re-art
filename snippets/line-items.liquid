@@ -2,6 +2,7 @@
     <div class="cart__info__line-items js-cart-items">
         {% for item in cart.items %}
             <div class="cart__line-item">
+                <a class="cart__line-item__link" href="{{ item.url }}"></a>
                 {{ item.image | img_url: 'medium' | img_tag }}
                 <div class="cart__line-item__content">
                     <p class="cart__line-item__title h4">{{ item.title }}</p> {% if item.quantity > 1 %}<span class="cart__line-item__title--count">x {{ item.quantity }}</span>{% endif %}

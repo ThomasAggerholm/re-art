@@ -5,6 +5,8 @@
         <p class="site-footer__text">Mandag - Torsdag: 8.00 - 16.00</p>
         <p class="site-footer__text">Fredag: 8.00 - 15.00</p>
         <h3 class="site-footer__heading"><a href="mailto:info@re-art.dk">info@re-art.dk</a></h3>
+        <a href="{{ section.settings.fb_link }}" class="site-footer__text some-link fb" target="_blank">Facebook</a>
+        <a href="{{ section.settings.ig_link }}" class="site-footer__text some-link" target="_blank">Instagram</a> 
     </div>
 
     {% for b in section.blocks %}
@@ -34,6 +36,20 @@
     {
         "name": "Footer",
         "class": "site-footer",
+        "settings": [{
+            "type": "header",
+            "content": "Sociale medier"
+        },
+        {
+            "type": "text",
+            "id": "fb_link",
+            "label": "Link til Facebook"
+        },
+        {
+            "type": "text",
+            "id": "ig_link",
+            "label": "Link til Instagram"
+        }],
         "blocks": [
             {
                 "type": "footer_col",

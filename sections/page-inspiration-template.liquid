@@ -1,7 +1,7 @@
 <div class="inspiration-page">
     <div class="inspiration-page__inner container">
         <div class="inspiration-page__header">
-            <h1 class="inspiration-page__header--title">{{ page.title }}</h1>
+            <h1 class="inspiration-page__header--title h3">{{ page.title }}</h1>
 
             {% if section.settings.desc != blank %}
                 <p class="inspiration-page__header--description">{{ section.settings.desc }}</p>
@@ -10,10 +10,34 @@
 
         <div class="inspiration-page__grid">
             {% for block in section.blocks %}
-                <div class="inspiration-page__grid-item">
+                <div class="inspiration-page__grid-item" data-inspiration-item>
                     <img src="{{ block.settings.image | img_url: 'large' }}" alt="">
                 </div>
             {% endfor %}
+        </div>
+
+        <div class="inspiration-page__modal" data-inspiration-modal>
+            <div class="container">
+                <div class="inspiration-page__slider__close" data-inspiration-close>
+                    {% include 'icons' with 'close' %}
+                </div>
+
+                <div class="inspiration-page__slider__arrow prev">
+                    {% include 'icons' with 'chevron-down' %}
+                </div>
+
+                <div class="inspiration-page__slider__arrow next">
+                    {% include 'icons' with 'chevron-down' %}
+                </div>
+
+                <div class="inspiration-page__slider" data-inspiration-slider>
+                    {% for block in section.blocks %}
+                        <div class="inspiration-page__slider__slide">
+                            <img src="{{ block.settings.image | img_url: 'master' }}" alt="">
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </div>
 </div>

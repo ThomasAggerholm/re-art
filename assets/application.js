@@ -561,14 +561,15 @@ $(document).ready(function () {
 
 
     //-------------- Product quantity change --------------//
-    const $btn = $('.js-prod-qty-picker .quantity-btn')
-    let value = parseInt($('.js-prod-qty-picker .quantity-btn.value').text())
-    let qty = parseInt($('#quantity').val())
-    let qtyMax = parseInt($('#quantity').attr('max'))
-    let $productPrice = $('.js-product-price')
-    const $variantSelect = $('.js-variant-select')
-    const $buyFrame = $('#buy-frame')
-    const buyFrameValue = $buyFrame.val()
+    var $btn = $('.js-prod-qty-picker .quantity-btn')
+    var value = parseInt($('.js-prod-qty-picker .quantity-btn.value').text())
+    var qty = parseInt($('#quantity').val())
+    var qtyMax = parseInt($('#quantity').attr('max'))
+    var $productPrice = $('.js-product-price')
+    var $productComparePrice = $('.js-product-compare-at-price')
+    var $variantSelect = $('.js-variant-select')
+    var $buyFrame = $('#buy-frame')
+    var buyFrameValue = $buyFrame.val()
 
     if ( qty == qtyMax ) {
         $('.quantity-btn.plus').prop('disabled', true)
@@ -601,6 +602,7 @@ $(document).ready(function () {
 
     $variantSelect.on('change', function() {
         $productPrice.text($(this).find(':selected').attr('data-price'))
+        $productComparePrice.text($(this).find(':selected').attr('data-compare-price'))
     })
 
     //Ajax the add to cart
@@ -658,7 +660,6 @@ $(document).ready(function () {
         setTimeout(function(){
             $.get('/cart.js', function(data) {
                 var data = JSON.parse(data)
-                console.log('Data: ', data)
                 var subtotal = data.items_subtotal_price
                 var totalCartPrice = data.total_price + 3000
     
@@ -730,23 +731,22 @@ $(document).ready(function () {
 
     
 //-------------- Collection filter --------------//
-var filterContainers = $('.collection__sidebar__grandchildlinklist-wrapper')
-var filterToggles = $('.collection__sidebar__childlinklist-wrapper__childlinklist__childlink__link')
-var filterLinks = $('.collection__sidebar__grandchildlinklist-wrapper__grandchildlinklist__link')
+var filterLinks = $('[data-sidebar-link]')
+var filterToggles = $('[data-sidebar-toggle]')
+var filterWrappers = $('[data-sidebar-wrapper]')
+
+filterToggles.click(function(e) {
+    if ( $(this).hasClass('has-children') ) {
+        e.preventDefault()
+    }
+    
+    $(this).siblings(filterWrappers).slideToggle(300)
+})
 
 filterLinks.each(function() {
     if ( $(this).hasClass('active') ) {
-        $(this).closest(filterContainers).show()
-        $(this).closest(filterContainers).siblings('.list-wrapper').find('.icon').addClass('active')
-        $(this).closest('.collection__sidebar__grandchildlinklist-wrapper').siblings('.list-wrapper').find(filterToggles).addClass('active')
+        $(this).closest(filterWrappers).show()
     }
-})
-
-filterToggles.on('click', function(e) {
-    e.preventDefault()
-
-    $(this).parent().siblings(filterContainers).slideToggle(300)
-    $(this).siblings('.icon').toggleClass('active')
 })
 
 var mobileFilterBtn = $('.js-mobile-filter-toggle')
@@ -756,6 +756,54 @@ mobileFilterBtn.on('click', function() {
     sidebar.toggle()
 })
 
+
+
+// Toggle product description
+var descriptionToggle = $('[data-description-toggle]')
+var descriptionExtra = $('[data-extra-description]')
+
+descriptionToggle.on('click', function(e) {
+    e.preventDefault()
+    descriptionExtra.slideToggle(300)
+})
+
+
+// Toggle page content
+var pageContentToggle = $('[data-page-content-toggle]')
+var pageContentExtra = $('[data-page-content-extra]')
+
+pageContentToggle.on('click', function(e) {
+    e.preventDefault()
+    pageContentExtra.slideToggle(300)
+})
+
+
+// Inspiration slider
+var inspirationSlider = $('[data-inspiration-slider]')
+var inspirationItems = $('[data-inspiration-item]')
+var inspirationClose = $('[data-inspiration-close]')
+var inspirationModal = $('[data-inspiration-modal]')
+
+inspirationItems.each(function(i) {
+    $(this).click(function() {
+        inspirationSlider.slick('slickGoTo', i)
+        setTimeout(function() {
+            inspirationModal.addClass('active')
+        }, 300)
+    })
+})
+
+inspirationClose.click(function() {
+    inspirationModal.removeClass('active')
+})
+
+inspirationSlider.slick({
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    prevArrow: '.inspiration-page__slider__arrow.prev',
+    nextArrow: '.inspiration-page__slider__arrow.next',
+    dynamicHeight: true
+})
 
     
 });

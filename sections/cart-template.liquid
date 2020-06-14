@@ -27,31 +27,36 @@
         </div>
 
         <div class="cart__total"> 
-        <form action="/cart" method="post" novalidate>
-            <div class="cart__total__header">
-                <h2>Subtotal</h2>
-                <p>{{ cart.total_price | money_without_trailing_zeros }}</p>
-            </div>
+            <form action="/cart" method="post" novalidate>
+                <div class="cart__total__header">
+                    <h2>Subtotal</h2>
+                    <p>{{ cart.total_price | money_without_trailing_zeros }}</p>
+                </div>
 
-            <div class="cart__total__delivery">
-                <h4>Fragt</h4>
-                <p>30 kr</p>
-            </div>
+                <div class="cart__total__delivery">
+                    <h4>Fragt</h4>
+                    <p>30 kr</p>
+                </div>
 
-            <div class="cart__total__total">
-                <h2>Total</h2>
-                {% assign delivery = 3000 %}
-                {% assign total = cart.total_price | plus: delivery %}
-                <p>{{ total | money_without_trailing_zeros }}</p>
-            </div>
+                <div class="cart__total__total">
+                    <h2>Total</h2>
+                    {% assign delivery = 3000 %}
+                    {% assign total = cart.total_price | plus: delivery %}
+                    <p>{{ total | money_without_trailing_zeros }}</p>
+                </div>
 
-            <div class="cart__total__footer">
-                {% comment %} <input id="terms" type="checkbox">
-                <label for="terms">Acceptér handelsbetingelser</label> {% endcomment %}
-                <input class="cart__total__footer__qta" type="number" name="updates[]" id="updates_{{ item.key }}" value="{{ item.quantity }}" min="0"> 
-                <button class="btn btn--black" type="submit" name="checkout">Gå til checkout</button>
+                <div class="cart__total__footer">
+                    {% comment %} <input id="terms" type="checkbox">
+                    <label for="terms">Acceptér handelsbetingelser</label> {% endcomment %}
+                    <input class="cart__total__footer__qta" type="number" name="updates[]" id="updates_{{ item.key }}" value="{{ item.quantity }}" min="0"> 
+                    <button class="btn btn--black" type="submit" name="checkout">Gå til checkout</button>
+                </div>
+            </form>
+
+            <div class="cart__total__notes">
+                <label for="CartNote">Tilføj en note til din ordre</label>
+                <textarea name="note" id="CartNote">{{ cart.note }}</textarea>
             </div>
-        </form>
         </div>
     </div>
 </div>
@@ -60,6 +65,8 @@
     {% if cart.item_count > 0 %}
         {% for item in cart.items %}
             <div class="cart-drawer__line-items--item">
+                <a class="cart-drawer__line-items--item__link" href="{{ item.url }}"></a>
+
                 <div class="cart-drawer__line-items--item__close">
                     <a class="cart__line-item__remove js-line-item-remove" href="/cart/change?line={{ forloop.index }}&amp;quantity=0">
                         {% include 'icons' with 'close' %}

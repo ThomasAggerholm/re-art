@@ -8,8 +8,8 @@
             <div class="hero__text-wrapper">
                 <h1 class="hero__title" style="color:{{ bs.text_color }};">{{ bs.headline }}</h1>
                 <p class="hero__text" style="color:{{ bs.text_color }};">{{ bs.text }}</p>
-                {% if bs.btn_text != blank and bs.btn_link != blank %}
-                    <span class="hero__btn"><a class="btn btn--transparent hero__btn" href="{{ bs.btn_url }}">{{ bs.btn_text }}</a></span>
+                {% if bs.btn_text != blank or bs.btn_link != blank %}
+                    <span class="hero__btn"><a class="btn btn--transparent hero__btn" href="{{ bs.btn_link }}">{{ bs.btn_text }}</a></span>
                 {% endif %}
             </div>
             

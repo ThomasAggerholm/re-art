@@ -23,7 +23,11 @@
                     <div class="overlay"></div>
 
                     <div class="all-rooms__grid-item__image"> 
-                        {{ collections[collHandle].image | img_url: 'large' | img_tag }}
+                        {% if collections[collHandle].image != blank %}
+                            {{ collections[collHandle].image | img_url: 'large' | img_tag }}
+                        {% else %}
+                            {{ block.settings.bg_image | img_url: 'large' | img_tag }}        
+                        {% endif %}
                     </div>
                 </div>
             {% endfor %}
@@ -51,6 +55,11 @@
                 "type": "collection",
                 "id": "coll",
                 "label": "Vælg kollektion"
+            },
+            {
+                "type": "image_picker",
+                "id": "bg_image",
+                "label": "Baggrundsbillede"
             }]
         }]
     }

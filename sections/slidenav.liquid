@@ -24,8 +24,8 @@
             <div class="slidenav__right__bottom__col menu__item">
                 <h3>Følg os</h3>
                 <div class="slidenav__right__bottom__links">
-                    <a href="#" target="_blank">Facebook</a>
-                    <a href="#" target="_blank">Instagram</a>
+                    <a href="{{ s.fb_link }}" target="_blank">Facebook</a>
+                    <a href="{{ s.ig_link }}" target="_blank">Instagram</a>
                 </div>
             </div>
 
@@ -66,6 +66,20 @@
                 "type": "image_picker",
                 "id": "img_right",
                 "label": "Vælg billede til højre side af menuen"
+            },
+            {
+                "type": "header",
+                "content": "Sociale medier"
+            },
+            {
+                "type": "text",
+                "id": "fb_link",
+                "label": "Link til Facebook"
+            },
+            {
+                "type": "text",
+                "id": "ig_link",
+                "label": "Link til Instagram"
             }
         ]
     }

@@ -3,18 +3,16 @@
 <ul class="collection__sidebar__linklist-wrapper__linklist">
     {% for link in linklists[linklistHandle].links %}
         <li class="collection__sidebar__linklist-wrapper__linklist__link">
-            <div class="list-wrapper">
+            <div class="list-wrapper{% if link.levels > 0 %} has-children{% endif %}" data-sidebar-toggle>
                 <a class="collection__sidebar__linklist-wrapper__linklist__link__link{% if link.active %} active{% endif %}" href="{{ link.url }}">{{ link.title }}</a>
-                {% include 'icons' with 'chevron-down' %}
             </div>
                 {% if link.links != blank %}
-                    <div class="collection__sidebar__childlinklist-wrapper">
+                    <div class="collection__sidebar__childlinklist-wrapper" data-sidebar-wrapper>
                         <ul class="collection__sidebar__childlinklist-wrapper__childlinklist">
                             {% for childlink in link.links %}
                                 <li class="collection__sidebar__childlinklist-wrapper__childlinklist__childlink">
                                     <div class="list-wrapper">
-                                        <a class="collection__sidebar__childlinklist-wrapper__childlinklist__childlink__link{% if childlink.active %} active{% endif %}" href="{{ childlink.url }}">{{ childlink.title }}</a>
-                                        {% include 'icons' with 'chevron-down' %}
+                                        <a class="collection__sidebar__childlinklist-wrapper__childlinklist__childlink__link{% if childlink.active %} active{% endif %}" href="{{ childlink.url }}" data-sidebar-link>{{ childlink.title }}</a>
                                     </div>
                                     {% if childlink.links != blank %}
                                         <div class="collection__sidebar__grandchildlinklist-wrapper">

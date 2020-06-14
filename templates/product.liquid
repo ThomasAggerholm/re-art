@@ -3,11 +3,21 @@
 <div class="product">
 
     <div class="product__breadcrumbs container">
-        {% include 'breadcrumbs' %}
+        <div class="product__breadcrumbs__left">
+            <a href="javascript: history.go(-1)" class="product__breadcrumbs__back">TILBAGE</a>
+            {% include 'breadcrumbs' %}
+        </div>
+        <a href="/pages/kontakt" target="_blank" class="product__breadcrumbs__contact">KUNDESERVICE</a>
     </div>
 
 <div class="product__inner container">
     <div class="product__images">
+        {% if product.compare_at_price > product.selected_or_first_available_variant.price %}
+            <div class="product__discount-label">
+                UDSALG
+            </div>
+        {% endif %}
+
         <div class="product__images__slider">
             <span class="featured-image__wrapper">
                 <img class="product__images__featured" src="{{ featured_image | img_url: 'master' }}" alt="{{ featured_image.alt | escape }}" data-image="{{ featured_image | img_url: 'master', scale: 2 }}">
@@ -28,25 +38,34 @@
     <div class="product__info">
         <div class="product__info__header">
             <h1 class="product__info__header__title">{{ product.title }}</h1>
-            <p class="product__info__header__price js-product-price">{{ current_variant.price | money }}</p>
+            <div class="product__info__header__prices">
+                <p class="product__info__header__price js-product-price">{{ current_variant.price | money }}</p>
+                {% if product.compare_at_price > product.selected_or_first_available_variant.price %}
+                    <span class="product__info__header__compare-at-price js-product-compare-at-price">{{ product.compare_at_price | money }}</span>
+                {% endif %}
+            </div>
         </div>
 
         <div class="product__info__details">
             <form action="/cart/add" method="post" enctype="multipart/form-data" id="add-to-cart-form">
                 {% if product.variants.size > 1 %}
-                    <select class="product__info__details__variant-select{% if product.variants.size <= 1 %} visually-hidden{% endif %} js-variant-select" name="id" id="productSelect">
-                        {% for variant in product.variants %}
-                            {% if variant.available %}
-                                <option value="{{ variant.id }}" data-price="{{ variant.price | money }}">
-                                    {{ variant.title }} - {{ variant.price | money_with_currency }}
-                                </option>
-                            {% else %}
-                                <option disabled="disabled">
-                                    {{ variant.title }} - sold out
-                                </option>
-                            {% endif %}
-                        {% endfor %}
-                    </select>
+                    <div class="product__info__details__input-wrapper">                
+                        <select class="product__info__details__variant-select{% if product.variants.size <= 1 %} visually-hidden{% endif %} js-variant-select" name="id" id="productSelect">
+                            {% for variant in product.variants %}
+                                {% if variant.available %}
+                                    <option value="{{ variant.id }}" data-price="{{ variant.price | money }}" data-compare-price="{{ variant.compare_at_price | money }}">
+                                        {{ variant.title }} - {{ variant.price | money_with_currency }}
+                                    </option>
+                                {% else %}
+                                    <option disabled="disabled">
+                                        {{ variant.title }} - sold out
+                                    </option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+
+                        {% include 'icons' with 'chevron-down' %}
+                    </div>
                 {% else %}
                     <input type="hidden" name="id" value="{{ product.variants.first.id }}">
                 {% endif %}
@@ -74,8 +93,18 @@
             </form>
         </div>
 
+        {%- assign desc = product.description | split: '%%%' -%}
         <div class="product__info__description-wrapper">
-            <div class="product__info__description">{{ product.description }}</div>
+            {% if desc.size > 1 %}
+                <div class="product__info__description">{{ desc[0] }}</div>
+                <a href="#" class="product__info__description__toggle" data-description-toggle>
+                    Læs mere
+                    {% include 'icons' with 'chevron-down' %}
+                </a>
+                <div class="product__info__description extra" data-extra-description>{{ desc[1] }}</div>
+            {% else %}
+                <div class="product__info__description">{{ product.description }}</div>
+            {% endif %}
         </div>
     </div>
 </div>
@@ -83,39 +112,5 @@
 {% section 'product-recommendations' %}
 
 {% section 'featured-category' %}
-
-<div class="contact-page">
-    <h1 class="contact-page__title">Tøv ikke med at kontakte os</h1>
-
-    {% form 'contact' %}
-        {% if form.posted_successfully? %} Tak for din besked. Vi vender tilbage hurtigst muligt. {% endif %}
-
-        {{ form.errors | default_errors }}
-
-        <div class="contact-page__input-wrapper">
-            <div class="contact-page__input">
-                <label for="ContactFormName">Navn</label>
-                <input type="text" id="ContactFormName" name="contact[name]">
-            </div>
-            
-            <div class="contact-page__input">
-                <label for="ContactFormEmail">Email</label>
-                <input type="email" id="ContactFormEmail" name="contact[email]">
-            </div>
-
-            <div class="contact-page__input">
-                <label for="ContactFormPhone">Telefon</label>
-                <input type="tel" id="ContactFormPhone" name="contact[phone]">
-            </div>
-            
-            <div class="contact-page__input">
-                <label for="ContactFormMessage">Besked</label>
-                <textarea rows="10" id="ContactFormMessage" name="contact[body]"></textarea>
-            </div>
-            
-            <input class="btn btn--black" type="Send" value="send">
-        </div>
-    {% endform %}
-</div>
 
 </div>
