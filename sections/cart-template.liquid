@@ -27,7 +27,7 @@
         </div>
 
         <div class="cart__total"> 
-            <form action="/cart" method="post" novalidate>
+            <form action="/cart" method="post" novalidate data-cart-form>
                 <div class="cart__total__header">
                     <h2>Subtotal</h2>
                     <p>{{ cart.total_price | money_without_trailing_zeros }}</p>
@@ -46,10 +46,12 @@
                 </div>
 
                 <div class="cart__total__footer">
-                    {% comment %} <input id="terms" type="checkbox">
-                    <label for="terms">Acceptér handelsbetingelser</label> {% endcomment %}
+                    <div class="cart__total__footer__terms">
+                        <input type="checkbox" id="terms" data-terms-input>
+                        <label for="terms">Jeg accepterer <a href="/pages/handelsbetingelser" data-terms-label>handelsbetingelserne</a></label>
+                    </div>
                     <input class="cart__total__footer__qta" type="number" name="updates[]" id="updates_{{ item.key }}" value="{{ item.quantity }}" min="0"> 
-                    <button class="btn btn--black" type="submit" name="checkout">Gå til checkout</button>
+                    <button class="btn btn--black" type="submit" name="checkout" data-cart-submit>Gå til checkout</button>
                 </div>
             </form>
 

@@ -42,9 +42,21 @@
 
     {% if desc.size > 1 %}
         <div class="container">
-            <div class="collection__header__description bottom">
-                {{ desc[1] }}
-            </div>
+            {% if desc.size > 2 %}
+                <div class="collection__header__description bottom flex">
+                    <div class="left">
+                        {{ desc[1] }}
+                    </div>
+
+                    <div class="right">
+                        {{ desc[2] }}
+                    </div>
+                </div>
+            {% else %}
+                <div class="collection__header__description bottom">
+                    {{ desc[1] }}
+                </div>
+            {% endif %}
         </div>
     {% endif %}
 </div>

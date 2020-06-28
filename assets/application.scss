@@ -2100,6 +2100,37 @@ img {
                     column-count: 1;
                     column-gap: 0;
                 }
+
+                h1,
+                h2,
+                h3,
+                h4,
+                h5,
+                h6,
+                strong {
+                    margin-bottom: 5px;
+                }
+
+                strong {
+                    margin-top: 16px;
+                }
+
+                img {
+                    display: block;
+                    margin-bottom: 16px;
+                }
+            }
+
+            &.flex {
+                display: flex;
+                column-count: 1;
+                column-gap: 0;
+            }
+
+            .left,
+            .right {
+                width: 50%;
+                padding-right: 50px;
             }
         }
     }
@@ -3194,15 +3225,15 @@ img {
         &__footer {
             text-align: center;
 
-            #terms {
-                margin-right: 10px;
-            }
+            // #terms {
+            //     margin-right: 10px;
+            // }
 
-            label {
-                display: inline-block;
-                margin-bottom: 20px;
-                font-size: 14px;
-            }
+            // label {
+            //     display: inline-block;
+            //     margin-bottom: 20px;
+            //     font-size: 14px;
+            // }
 
             &__qta {
                 display: none;
@@ -3215,6 +3246,27 @@ img {
                 &:hover {
                     background: white;
                     color: black;
+                }
+            }
+
+            &__terms {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 10px;
+
+                label {
+                    font-size: 14px;
+                }
+
+                input {
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+
+                a {
+                    font-weight: bold;
                 }
             }
         }

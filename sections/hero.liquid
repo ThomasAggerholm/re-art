@@ -4,7 +4,7 @@
     <div class="hero__slider" data-speed="{{ s.speed }}">
     {% for b in section.blocks %}
     {% assign bs = b.settings %}
-        <div class="hero__inner" {% if bs.center_text %}style="align-items: center;"{% endif %}>
+        <div class="hero__inner" {% if bs.center_text %}style="align-items: center;text-align:center;"{% endif %}>
             <div class="hero__text-wrapper">
                 <h1 class="hero__title" style="color:{{ bs.text_color }};">{{ bs.headline }}</h1>
                 <p class="hero__text" style="color:{{ bs.text_color }};">{{ bs.text }}</p>

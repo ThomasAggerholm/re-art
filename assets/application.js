@@ -392,6 +392,23 @@ fadeIn()
 document.addEventListener('scroll', fadeIn)
 window.addEventListener('resize', fadeIn)
 
+
+//-------------- Cart terms --------------//
+var termsLabel = document.querySelector('[data-terms-label]')
+var termsInput = document.querySelector('[data-terms-input]')
+var cartSubmit = document.querySelector('[data-cart-submit]')
+var cartForm = document.querySelector('[data-cart-form]')
+
+cartSubmit.addEventListener('click', function(e) {  
+    var checked = termsInput.checked
+
+    if ( checked != true ) {
+        e.preventDefault()
+        alert('Du mangler at accepterer handelsbetingelser')
+    }
+})
+
+
 //-------------- Document Ready --------------//
 $(document).ready(function () {
 
