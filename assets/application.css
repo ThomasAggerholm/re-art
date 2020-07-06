@@ -804,7 +804,7 @@ img {
           animation: slideOut 0.3s ease-out forwards;
   background: #ffffff;
   overflow: auto;
-  z-index: 1000;
+  z-index: 9999;
 }
 
 .mobile-nav__inner {
@@ -2746,6 +2746,15 @@ img {
   text-transform: uppercase;
 }
 
+@media screen and (max-width: 600px) {
+  .product__breadcrumbs {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+
 .product__breadcrumbs__left {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2756,6 +2765,16 @@ img {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+@media screen and (max-width: 600px) {
+  .product__breadcrumbs__left {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    margin-bottom: 20px;
+  }
 }
 
 .product__breadcrumbs__back {
@@ -2772,8 +2791,16 @@ img {
   color: #000000;
 }
 
+@media screen and (max-width: 600px) {
+  .product__breadcrumbs__back {
+    margin-bottom: 20px;
+    margin-right: 0;
+  }
+}
+
 .product__breadcrumbs__contact {
   text-transform: uppercase;
+  text-decoration: underline;
   font-size: 14px;
 }
 
@@ -2872,6 +2899,12 @@ img {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   cursor: pointer;
 }
 
@@ -3890,6 +3923,14 @@ img {
   outline: none;
 }
 
+.contact-page__input textarea {
+  padding: 10px;
+}
+
+.contact-page__input textarea:focus, .contact-page__input textarea:active {
+  outline: none;
+}
+
 .inspiration-page {
   padding: 50px 0;
 }
@@ -4127,5 +4168,63 @@ img {
     width: 100%;
     text-align: center;
   }
+}
+
+.contact-pop-up {
+  display: none;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+}
+
+.contact-pop-up.active {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.contact-pop-up__inner {
+  position: relative;
+  background: #ffffff;
+  padding: 30px;
+  -webkit-box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
+}
+
+@media screen and (min-width: 768px) {
+  .contact-pop-up__inner {
+    min-width: 400px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .contact-pop-up__inner {
+    width: 90%;
+  }
+}
+
+.contact-pop-up__close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 30px;
+  height: 30px;
+}
+
+.contact-pop-up__close:hover {
+  cursor: pointer;
+}
+
+.contact-pop-up__title {
+  margin-bottom: 20px;
 }
 /*# sourceMappingURL=application.css.map */

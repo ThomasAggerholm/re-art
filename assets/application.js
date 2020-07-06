@@ -399,19 +399,36 @@ var termsInput = document.querySelector('[data-terms-input]')
 var cartSubmit = document.querySelector('[data-cart-submit]')
 var cartForm = document.querySelector('[data-cart-form]')
 
-cartSubmit.addEventListener('click', function(e) {  
-    var checked = termsInput.checked
+if (cartSubmit) {
+    cartSubmit.addEventListener('click', function(e) {  
+        var checked = termsInput.checked
+    
+        if ( checked != true ) {
+            e.preventDefault()
+            alert('Du mangler at accepterer handelsbetingelser')
+        }
+    })
+}
 
-    if ( checked != true ) {
-        e.preventDefault()
-        alert('Du mangler at accepterer handelsbetingelser')
-    }
-})
 
 
 //-------------- Document Ready --------------//
 $(document).ready(function () {
 
+    //-------------- Contact pop-up --------------//
+    var contactPopup = $('.contact-pop-up')
+    var contactPopupClose = $('.contact-pop-up__close')
+    var contactPopupButtons = $("a[href$='#contact-popup']")
+
+    contactPopupButtons.on('click', function(e) {
+        e.preventDefault()
+        contactPopup.addClass('active')
+    })
+
+    contactPopupClose.on('click', function() {
+        contactPopup.removeClass('active')
+    })
+    
 
     //-------------- Mobile menu toggles --------------//
     const

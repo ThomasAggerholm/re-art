@@ -15,15 +15,15 @@
 
     <a href="{{ p.url | within: collection }}">
         <div class="product-card__image-wrapper">
-            <img class="product-card__image one" src="{{ p.featured_image | img_url: 'medium' }}" alt="{{ p.featured_image.alt }}">
+            <img class="product-card__image one" src="{{ p.featured_image | img_url: 'master' }}" alt="{{ p.featured_image.alt }}">
             {% if p.images.size > 1 %}
                 {% for image in p.images %}
                     {% if forloop.index == 2 %}
-                        <img class="product-card__image two" src="{{ image | img_url: 'medium' }}">
+                        <img class="product-card__image two" src="{{ image | img_url: 'master' }}">
                     {% endif %}
                 {% endfor %}
             {% else %}
-                <img class="product-card__image two" src="{{ p.featured_image | img_url: 'medium' }}" alt="{{ p.featured_image.alt }}">
+                <img class="product-card__image two" src="{{ p.featured_image | img_url: 'master' }}" alt="{{ p.featured_image.alt }}">
             {% endif %}
         </div>
     </a>

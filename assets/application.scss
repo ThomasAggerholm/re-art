@@ -718,7 +718,7 @@ img {
 
     background: $white;
     overflow: auto;
-    z-index: 1000;
+    z-index: 9999;
 
     &__inner {
         display: flex;
@@ -2463,11 +2463,18 @@ img {
         margin-bottom: 30px;
         font-size: 14px;
         text-transform: uppercase;
+        @media screen and (max-width: 600px) {
+            flex-direction: column;
+        }
 
         &__left {
             display: flex;
             justify-content: flex-start;
             align-items: center;
+            @media screen and (max-width: 600px) {
+                flex-direction: column;
+                margin-bottom: 20px;
+            }
         }
 
         &__back {
@@ -2481,10 +2488,15 @@ img {
                 background: $white;
                 color: $black;
             }
+            @media screen and (max-width: 600px) {
+                margin-bottom: 20px;
+                margin-right: 0;
+            }
         }
 
         &__contact {
             text-transform: uppercase;
+            text-decoration: underline;
             font-size: 14px;
         }
     }
@@ -2557,6 +2569,8 @@ img {
 
         &__thumbnails {
             display: flex;
+            align-items: flex-start;
+            justify-content: center;
             cursor: pointer;
         }
 
@@ -3401,6 +3415,14 @@ img {
                 outline: none;
             }
         }
+
+        textarea {
+            padding: 10px;
+            &:focus,
+            &:active {
+                outline: none;
+            }
+        }
     }
 }
 
@@ -3579,5 +3601,48 @@ img {
             width: 100%;
             text-align: center;
         }
+    }
+}
+
+.contact-pop-up {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    &.active {
+        display: flex;
+    }
+
+    &__inner {
+        position: relative;
+        background: $white;
+        padding: 30px;
+        box-shadow: 0 0 50px rgba($black, .2);
+        @media screen and (min-width: 768px) {
+            min-width: 400px;
+        }
+        @media screen and (max-width: 600px) {
+            width: 90%;
+        }
+    }
+
+    &__close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 30px;
+        height: 30px;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    &__title {
+        margin-bottom: 20px;
     }
 }
