@@ -697,7 +697,8 @@ $(document).ready(function () {
                 var subtotal = data.items_subtotal_price
                 var totalCartPrice = data.total_price + 3000
     
-                cartTotal.html(formatMoney(totalCartPrice))
+                // cartTotal.html(formatMoney(totalCartPrice))
+                cartTotal.html(formatMoney(data.total_price))
                 cartSubtotal.html(formatMoney(subtotal))
             })
         }, 800)
