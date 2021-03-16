@@ -695,10 +695,17 @@ $(document).ready(function () {
             $.get('/cart.js', function(data) {
                 var data = JSON.parse(data)
                 var subtotal = data.items_subtotal_price
-                var totalCartPrice = data.total_price + 3000
+                var shippingPrice = theme.shippingPrice * 100
+                var freeShippingText = theme.freeShippingText
+                var totalCartPrice
+
+                if (shippingPrice === 0) {
+                    totalCartPrice = formatMoney(data.total_price)
+                } else {
+                    totalCartPrice = formatMoney(data.total_price + shippingPrice)
+                }
     
-                // cartTotal.html(formatMoney(totalCartPrice))
-                cartTotal.html(formatMoney(data.total_price))
+                cartTotal.html(totalCartPrice)
                 cartSubtotal.html(formatMoney(subtotal))
             })
         }, 800)

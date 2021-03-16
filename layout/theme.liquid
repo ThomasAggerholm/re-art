@@ -12,7 +12,12 @@
   {{ 'slick.css' | asset_url | stylesheet_tag }}
   {{ 'application.css' | asset_url | stylesheet_tag }}
   
-
+    <script>
+        window.theme = {
+            shippingPrice: {{ settings.shipping_price | json }},
+            freeShippingText: {{ settings.free_shipping_text | json }}
+        }
+    </script>
   
 </head>
 

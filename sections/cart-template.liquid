@@ -34,18 +34,37 @@
                 </div>
 
                 <div class="cart__total__delivery">
+                    {%- assign shipping_price = settings.shipping_price | times: 100 -%}
+                    {%- assign free_shipping_text = settings.free_shipping_text -%}
+                    
+                    {%- assign has_free_shipping = false -%}
+                    {%- if shipping_price == 0 -%}
+                        {%- assign has_free_shipping = true -%}
+                    {%- endif -%}
+
+                    {%- capture shipping_output -%}
+                        {%- if has_free_shipping -%}
+                            {{ free_shipping_text }}
+                        {%- else -%}
+                            {{ shipping_price | money_without_trailing_zeros }}
+                        {%- endif -%}
+                    {%- endcapture -%}
+
                     <h4>Fragt</h4>
-                    <p>{{ settings.fragt | default: '30 kr' }}</p>
+                    <p>{{ shipping_output }}</p>
                 </div>
 
                 <div class="cart__total__total">
                     <h2>Total</h2>
-                    {% assign delivery = 3000 %}
-                    {% assign total = cart.total_price | plus: delivery %}
-                    {%- comment -%}
-                    <p>{{ total | money_without_trailing_zeros }}</p>
-                    {%- endcomment -%}
-                    <p>{{ cart.total_price | money_without_trailing_zeros }}</p>
+                    {%- capture total -%}
+                        {%- if has_free_shipping -%}
+                            {{ cart.total_price | money_without_trailing_zeros }}
+                        {%- else -%}
+                            {{cart.total_price | plus: shipping_price | money_without_trailing_zeros  }}
+                        {%- endif -%}
+                    {%- endcapture -%}
+                    
+                    <p>{{ total }}</p>
                 </div>
 
                 <div class="cart__total__footer">

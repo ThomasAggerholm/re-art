@@ -11,9 +11,15 @@
       "name": "Fragt",
       "settings": [
           {
-              "type": "text",
-              "id": "fragt",
-              "label": "Fragt pris"
+              "type": "number",
+              "id": "shipping_price",
+              "label": "Fragt pris",
+              "info": "Skriv fragt pris uden ekstra nuller, fx 30"
+          },
+          {
+            "type": "text",
+            "id": "free_shipping_text",
+            "label": "Gratis fragt tekst"
           }
       ]
   }
