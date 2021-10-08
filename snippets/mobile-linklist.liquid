@@ -13,7 +13,7 @@
         {% if link.links != blank %}
            <ul class="child-link__mobile-menu"> 
                 {% for child_link in link.links %}
-                    <li class="child-link__mobile-menu__item {% if link.levels > 0 %} has-children{% endif %}">
+                    <li class="child-link__mobile-menu__item {% if link.levels > 1 %} has-children{% endif %}">
                         <a class="child-link" href="{{ child_link.url }}">{{ child_link.title }}</a>
                         <div class="megamenu__grandchild">
                             <ul>
