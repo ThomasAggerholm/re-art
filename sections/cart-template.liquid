@@ -26,7 +26,20 @@
             </div>
         </div>
 
-        <div class="cart__total"> 
+        <div class="cart__total">
+            {%- assign free_shipping_limit = settings.free_shipping_limit | times: 100 -%}
+            {%- assign diff = free_shipping_limit | minus: cart.total_price -%}
+
+            <div class="cart-drawer__shipping">
+                <div class="cart-drawer__shipping__message" data-shipping-message>
+                    {%- if free_shipping_limit > cart.total_price -%}
+                        Køb for <span data-shipping-limit>{{ diff | money }}</span> for at få fri fragt
+                    {%- else -%}
+                        Du har opnået gratis fragt
+                    {%- endif -%}
+                </div>
+            </div>
+
             <form action="/cart" method="post" novalidate data-cart-form>
                 <div class="cart__total__header">
                     <h2>Subtotal</h2>

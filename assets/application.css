@@ -997,7 +997,15 @@ img {
       -ms-flex-align: start;
           align-items: flex-start;
   position: relative;
+}
+
+.cart-drawer__shipping {
+  margin-top: 10px;
   margin-bottom: 20px;
+  padding: 14px 0 14px 20px;
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 12px;
 }
 
 .cart-drawer__line-items--item {

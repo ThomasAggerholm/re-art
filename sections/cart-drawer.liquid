@@ -5,31 +5,44 @@
         <span class="cart-drawer__close js-cart-drawer-close">{% include 'icons' with 'close' %}</span>
     </div>
 
-    
-        <div class="cart-drawer__line-items js-cart-drawer-line-items">
-            {% if cart.item_count > 0 %}
-                {% for item in cart.items %}
-                    <div class="cart-drawer__line-items--item">
-                        <a class="cart-drawer__line-items--item__link" href="{{ item.url }}"></a>
+    {%- assign free_shipping_limit = settings.free_shipping_limit | times: 100 -%}
+    {%- assign diff = free_shipping_limit | minus: cart.total_price -%}
 
-                        <div class="cart-drawer__line-items--item__close">
-                            <a class="cart__line-item__remove js-line-item-remove" href="/cart/change?line={{ forloop.index }}&amp;quantity=0">{% include 'icons' with 'close' %}</a>
-                        </div>
-
-                        <div class="cart-drawer__line-items--item__image">
-                            {{ item.image | img_url: '100x' | img_tag }}
-                        </div>
-
-                        <div class="cart-drawer__line-items--item__text">
-                            <p class="title">{{ item.title }}</p>
-                            <p class="price">{{ item.price | money_without_trailing_zeros }}</p>
-                        </div>
-                    </div>
-                {% endfor %}
-            {% else %}
-                <p>Din indkøbskurv er tom</p>
-            {% endif %}
+    <div class="cart-drawer__shipping">
+        <div class="cart-drawer__shipping__message" data-shipping-message>
+            {%- if free_shipping_limit > cart.total_price -%}
+                Køb for <span data-shipping-limit>{{ diff | money }}</span> for at få fri fragt
+            {%- else -%}
+                Du har opnået gratis fragt
+            {%- endif -%}
         </div>
+    </div>
+
+    
+    <div class="cart-drawer__line-items js-cart-drawer-line-items">
+        {% if cart.item_count > 0 %}
+            {% for item in cart.items %}
+                <div class="cart-drawer__line-items--item">
+                    <a class="cart-drawer__line-items--item__link" href="{{ item.url }}"></a>
+
+                    <div class="cart-drawer__line-items--item__close">
+                        <a class="cart__line-item__remove js-line-item-remove" href="/cart/change?line={{ forloop.index }}&amp;quantity=0">{% include 'icons' with 'close' %}</a>
+                    </div>
+
+                    <div class="cart-drawer__line-items--item__image">
+                        {{ item.image | img_url: '100x' | img_tag }}
+                    </div>
+
+                    <div class="cart-drawer__line-items--item__text">
+                        <p class="title">{{ item.title }}</p>
+                        <p class="price">{{ item.price | money_without_trailing_zeros }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Din indkøbskurv er tom</p>
+        {% endif %}
+    </div>
     
 
     <div class="cart-drawer__footer">

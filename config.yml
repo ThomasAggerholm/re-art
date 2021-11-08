@@ -1,4 +1,19 @@
 development:
   password: 586902d81aa9293e6e275138e7331583
+  theme_id: "128442663158"
+  store: re-art-holm.myshopify.com
+  ignore_files:
+      - templates/*.json
+      - locales/*.json
+      - config/settings_data.json
+      # - /(locales\/)[a-zA-Z]+(-[A-Z]+)?(.json)/
+
+production:
+  password: 586902d81aa9293e6e275138e7331583
   theme_id: "77159268434"
   store: re-art-holm.myshopify.com
+  ignore_files:
+      - templates/*.json
+      - locales/*.json
+      - config/settings_data.json
+      # - /(locales\/)[a-zA-Z]+(-[A-Z]+)?(.json)/

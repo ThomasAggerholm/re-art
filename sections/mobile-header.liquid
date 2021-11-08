@@ -6,7 +6,7 @@
 
         <div class="mobile-header__icons">
             <div class="mobile-header__search">{{ 'search.svg' | asset_url | img_tag: 'search', 'search-icon js-search-icon' }}</div>
-            <div class="mobile-header__cart">
+            <div class="mobile-header__cart js-cart-icon">
                 <a href="/cart">
                     {{ 'cart.svg' | asset_url | img_tag: 'cart', 'cart-icon' }} 
                     <span class="site-header__cart-count js-cart-count">{{ cart.item_count }}</span>

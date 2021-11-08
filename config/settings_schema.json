@@ -17,6 +17,12 @@
               "info": "Skriv fragt pris uden ekstra nuller, fx 30"
           },
           {
+            "type": "number",
+            "id": "free_shipping_limit",
+            "label": "Hvad er grænsen for at opnå gratis fragt? Skriv tallet uden nuller, fx 500",
+            "default": 500
+          },
+          {
             "type": "text",
             "id": "free_shipping_text",
             "label": "Gratis fragt tekst"

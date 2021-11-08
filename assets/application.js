@@ -695,9 +695,13 @@ $(document).ready(function () {
             $.get('/cart.js', function(data) {
                 var data = JSON.parse(data)
                 var subtotal = data.items_subtotal_price
+                var cartCount = data.item_count
                 var shippingPrice = theme.shippingPrice * 100
                 var freeShippingText = theme.freeShippingText
                 var totalCartPrice
+                var freeShippingLimit = theme.freeShippingLimit * 100
+                var $freeShippingElem = $('[data-shipping-limit]')
+                var $shippingMessage = $('[data-shipping-message]')
 
                 if (shippingPrice === 0) {
                     totalCartPrice = formatMoney(data.total_price)
@@ -705,6 +709,12 @@ $(document).ready(function () {
                     totalCartPrice = formatMoney(data.total_price + shippingPrice)
                 }
     
+                if (data.total_price < freeShippingLimit) {
+                    $shippingMessage.html('Køb for <span data-shipping-limit>'+ formatMoney(freeShippingLimit - data.total_price) +'</span> for at få fri fragt')
+                } else {
+                    $shippingMessage.html('Du har opnået gratis fragt')
+                }
+
                 cartTotal.html(totalCartPrice)
                 cartSubtotal.html(formatMoney(subtotal))
             })
