@@ -117,7 +117,6 @@ img {
   width: 100%;
   height: auto;
   display: block;
-  pointer-events: none;
 }
 
 .container {
@@ -2932,6 +2931,11 @@ img {
     width: 100%;
     max-width: 100%;
   }
+}
+
+.product__info__size-title {
+  margin-bottom: 12px;
+  font-size: 20px;
 }
 
 .product__info__header {

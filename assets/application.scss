@@ -123,7 +123,6 @@ img {
     width: 100%;
     height: auto;
     display: block;
-    pointer-events: none;
 }
 
 
@@ -2591,12 +2590,15 @@ img {
 
     &__info {
         max-width: 400px;
-
         padding: 30px;
-
         @media screen and (max-width: 512px) {
             width: 100%;
             max-width: 100%;
+        }
+
+        &__size-title {
+            margin-bottom: 12px;
+            font-size: 20px;
         }
         
         &__header {
@@ -2645,7 +2647,7 @@ img {
         }
 
         &__details {
-
+            
             &__input-wrapper {
                 position: relative;
                 height: 40px;

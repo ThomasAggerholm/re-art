@@ -47,6 +47,9 @@
         </div>
 
         <div class="product__info__details">
+            {%- if product.variants.size > 1 -%}
+                <h2 class="product__info__size-title">Vælg størrelse</h2>
+            {%- endif -%}
             <form action="/cart/add" method="post" enctype="multipart/form-data" id="add-to-cart-form">
                 {% if product.variants.size > 1 %}
                     <div class="product__info__details__input-wrapper">                
