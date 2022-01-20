@@ -32,7 +32,7 @@
             <a href="{{ p.url }}">{{ p.title | truncate: 20, '...' }}</a>
         </h3>
         <div class="product-card__prices">
-            <span class="product-card__price">Fra {{ p.selected_or_first_available_variant.price | money_without_trailing_zeros }}</span>
+            <p class="product-card__price">{%- unless product.has_only_default_variant -%}<span>Fra </span> {%- endunless -%}{{ p.selected_or_first_available_variant.price | money_without_trailing_zeros }}</p>
             {% if p.compare_at_price > p.selected_or_first_available_variant.price %}
                 <span class="product-card__compare-at-price">{{ p.compare_at_price | money_without_trailing_zeros }}</span>
             {% endif %}
