@@ -195,6 +195,18 @@ img {
     flex-direction: column;
     position: relative;
 
+    @media (hover: hover) {
+        &:hover {
+            img.one {
+                opacity: 0;
+            }
+
+            img.two {
+                opacity: 1;
+            }
+        }
+    }
+
     &__label {
         display: flex;
         justify-content: center;
@@ -227,21 +239,10 @@ img {
         height: 100%;
         border: 2px solid $black;
         object-fit: cover;
+        pointer-events: none;
 
         &.two {
             opacity: 0;
-        }
-
-        @media screen and (min-width: 1025px) {
-            &:hover {
-                &.one {
-                    opacity: 0;
-                }
-
-                &.two {
-                    opacity: 1;
-                }
-            }
         }
     }
 
@@ -928,14 +929,14 @@ img {
                 position: absolute;
                 bottom: 10px;
                 right: 10px;
-
                 opacity: 0;
                 transition: opacity 0.3s ease-out;
-
                 z-index: 2;
-
                 &:hover {
                     cursor: pointer;
+                }
+                @media screen and (max-width: 1024px) {
+                    opacity: 1;
                 }
             }
 
@@ -2548,9 +2549,12 @@ img {
         align-items: flex-start;
         margin-right: 100px;
         padding-top: 30px;
-
         @media screen and (max-width: 512px) {
             margin-right: 0;
+        }
+
+        &__featured {
+            pointer-events: none;
         }
 
         .featured-image__wrapper {
@@ -2572,6 +2576,7 @@ img {
         .zoomImg {
             width: 230% !important;
             height: 230% !important;
+            pointer-events: none;
         }
 
         &__thumbnails {
