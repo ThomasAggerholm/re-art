@@ -481,16 +481,16 @@ img {
 
     &__cart {
         position: relative;
-
         display: flex;
         justify-content: flex-end;
         align-items: center;
-
         width: 20px;
-
         margin-left: 30px;
-
         cursor: pointer;
+
+        a {
+            width: 100%;
+        }
 
         img {
             display: block;

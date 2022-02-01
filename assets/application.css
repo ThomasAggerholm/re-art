@@ -551,6 +551,10 @@ img {
   cursor: pointer;
 }
 
+.site-header__cart a {
+  width: 100%;
+}
+
 .site-header__cart img {
   display: block;
 }

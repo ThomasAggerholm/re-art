@@ -51,7 +51,7 @@
                     {%- assign free_shipping_text = settings.free_shipping_text -%}
                     
                     {%- assign has_free_shipping = false -%}
-                    {%- if shipping_price == 0 -%}
+                    {%- if cart.total_price >= free_shipping_limit -%}
                         {%- assign has_free_shipping = true -%}
                     {%- endif -%}
 
