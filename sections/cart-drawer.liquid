@@ -11,7 +11,7 @@
     <div class="cart-drawer__shipping">
         <div class="cart-drawer__shipping__message" data-shipping-message>
             {%- if free_shipping_limit > cart.total_price -%}
-                Køb for <span data-shipping-limit>{{ diff | money }}</span> for at få fri fragt
+                Køb for <span data-shipping-limit>{{ diff | money }}</span> mere for at få fri fragt
             {%- else -%}
                 Du har opnået gratis fragt
             {%- endif -%}

@@ -710,7 +710,7 @@ $(document).ready(function () {
                     } else {
                         totalCartPrice = formatMoney(data.total_price)
                     }
-                    $shippingMessage.html('Køb for <span data-shipping-limit>'+ formatMoney(freeShippingLimit - data.total_price) +'</span> for at få fri fragt')
+                    $shippingMessage.html('Køb for <span data-shipping-limit>'+ formatMoney(freeShippingLimit - data.total_price) +'</span> mere for at få fri fragt')
                     $shippingPriceElem.html(formatMoney(shippingPrice))
                 } else {
                     $shippingMessage.html('Du har opnået gratis fragt')
