@@ -1,6 +1,6 @@
 development:
   password: 586902d81aa9293e6e275138e7331583
-  theme_id: "128442663158"
+  theme_id: "156189819229"
   store: re-art-holm.myshopify.com
   ignore_files:
       - templates/*.json
@@ -10,7 +10,7 @@ development:
 
 production:
   password: 586902d81aa9293e6e275138e7331583
-  theme_id: "77159268434"
+  theme_id: "128442663158"
   store: re-art-holm.myshopify.com
   ignore_files:
       - templates/*.json
